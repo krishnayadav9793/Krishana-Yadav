@@ -1,53 +1,37 @@
-'use client'
-// import Link from 'next/link'
-import React from 'react'
-import { useState } from 'react';
-import {motion} from 'framer-motion';
-const navItems = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Work", href: "/work" },
-  { name: "Contact", href: "/contact" }
-  
-];
-function Header() {
-  const [hovered, setHovered] = useState(null);
+"use client";
+import React, { useState } from "react";
+import { MenuItem,Menu } from "../../components/ui/navbar-menu";
+import { cn } from "@/lib/utils";
+import Landing from "./workScreen/Landing";
+import WebScreen from "./workScreen/WebScreen";
+import AppScreen from './workScreen/AppScreen'
+import AIScreen from "./workScreen/AIScreen";
+import DSAScreen from "./workScreen/DSAScreen";
+export function NavbarDemo() {
   return (
-    <div className='bg-slate-900/80 backdrop-blur-md grid grid-cols-2 p-4 min-w-10 fixed top-0 w-full z-50  '>
-        <div>
-            <h1 className='font-bold text-2xl'>Krishana Yadav</h1>
-        </div>
-        <div className="flex justify-center gap-8 text-[20px]">
-        {navItems.map((item) => (
-          <div
-            key={item.name}
-            onMouseEnter={() => setHovered(item.name)}
-            onMouseLeave={() => setHovered(null)}
-            className="relative group cursor-pointer"
-          >
-            <a
-              href={item.href}
-              className="  transition-colors"
-            >
-              {item.name}
-            </a>
-
-            
-            {hovered === item.name && (
-              <motion.div
-                layoutId="underline"
-                className="absolute left-0 right-0 h-[3px] bg-gray-700 rounded-full"
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 5 }}
-                transition={{ duration: 0.2 }}
-              />
-            )}
-          </div>
-        ))}
-      </div>
+    <div className="relative w-full flex items-center justify-center mb-3">
+      <Navbar />
     </div>
-  )
+  );
 }
 
-export default Header
+function Navbar({
+  className
+}) {
+  const [Screens, setScreens] = useState(Landing)
+  return (
+    <div>
+      <div
+        className={cn(`sticky mt-10 inset-x-0 max-w-2xl mx-auto z-50`, className,'w-fit mb-2')}>
+        <Menu className="w-fit">
+          <button onClick={()=>setScreens(WebScreen)}> Web development</button>
+          <button onClick={()=>setScreens(AppScreen)}> App development</button>
+          <button onClick={()=>setScreens(DSAScreen)}> DSA </button>
+          <button onClick={()=>setScreens(AIScreen)}> AI/ML</button>
+        </Menu>
+      </div>
+      <div>{Screens}</div>
+    </div>
+
+  );
+}
