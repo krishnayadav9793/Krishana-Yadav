@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={anton.className}>
       <body >
-        <div >
+        <div className="bg-neutral-100  dark:bg-neutral-950">
           <Navbar/>
           {children}
         </div>

@@ -4,7 +4,7 @@ import { MenuItem,Menu } from "../../components/ui/navbar-menu";
 import { cn } from "@/lib/utils";
 import Landing from "./workScreen/Landing";
 import WebScreen from "./workScreen/WebScreen";
-import AppScreen from './workScreen/AppScreen'
+import AppScreen from './workScreen/AppScreen.js'
 import AIScreen from "./workScreen/AIScreen";
 import DSAScreen from "./workScreen/DSAScreen";
 export function NavbarDemo() {
@@ -30,7 +30,7 @@ function Navbar({
           <button onClick={()=>setScreens(AIScreen)}> AI/ML</button>
         </Menu>
       </div>
-      <div>{Screens}</div>
+      <div className="flex justify-center items-center min-h-[80vh]">{Screens}</div>
     </div>
 
   );

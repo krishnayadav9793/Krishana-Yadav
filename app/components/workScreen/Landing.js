@@ -3,7 +3,7 @@ import React from 'react'
 import { SVGMaskEffectDemo } from './backGround'
 function Landing() {
   return (
-    <div>
+    <div className='pb-2'>
       <SVGMaskEffectDemo/>
     </div>
   )
