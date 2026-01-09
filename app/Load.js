@@ -4,7 +4,7 @@ import React from "react";
 import { TypewriterEffectSmoothDemo } from "@/components/loading";
 
 
-function loading() {
+function Loading() {
   return (
     <div>
       <TypewriterEffectSmoothDemo/>
@@ -12,5 +12,5 @@ function loading() {
   )
 }
 
-export default loading
+export default Loading
 
