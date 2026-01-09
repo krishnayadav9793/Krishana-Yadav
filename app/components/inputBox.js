@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { FloatingDockDemo } from "./floatingFooter";
 import { Textarea } from "@/components/ui/textarea";
 import { sendMail } from "@/lib/sendMail";
+import { Mali } from "next/font/google";
 export function SignupFormDemo() {
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
@@ -18,7 +19,8 @@ export function SignupFormDemo() {
         const massage = document.getElementById("firstname").value + " " + document.getElementById("lastname").value + "\n" + document.getElementById("text").value
         const mail = document.getElementById("email").value
         const sub = "Response from website"
-        await sendMail(mail, sub, massage);
+        await sendMail("karanyadav21398@gmail.com", sub, massage);
+        await sendMail(mail,"Thank you for your response","Thank you for your response")
         // alert("massage sent")
         document.getElementById("form").reset()
         setButtonText("Massage sent!!")

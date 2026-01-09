@@ -1,4 +1,4 @@
-"use client";;
+
 import React, { useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -11,7 +11,7 @@ export const BackgroundRippleEffect = ({
   const [clickedCell, setClickedCell] = useState(null);
   const [rippleKey, setRippleKey] = useState(0);
   const ref = useRef(null);
-  const height= screen.availHeight;
+  const height= 100;
   console.log(height);
   rows=height;
   return (

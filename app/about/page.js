@@ -20,9 +20,9 @@ function About() {
       <div className=' h-fit'>
         {screen}
       </div>
-      <button className='mt-24' onClick={changeScreen}>
-        <HoverBorderGradientDemo btnContent={btn}/>
-      </button>
+      <div className='mt-24' onClick={changeScreen}>
+        <HoverBorderGradientDemo btnContent={btn} />
+      </div>
     </div>
   )
 }

@@ -9,15 +9,13 @@ export function SVGMaskEffectDemo() {
         revealText={
           <p
             className="mx-auto max-w-4xl text-center text-4xl font-bold text-slate-800 dark:text-white">
-            The first rule of MRR Club is you do not talk about MRR Club. The
-            second rule of MRR Club is you DO NOT talk about MRR Club.
+            I work across Data Structures & Algorithms, Web Development, and AI/ML,
+            building solutions that are efficient, scalable, and actually make sense.
           </p>
         }
         className="h-[40rem] rounded-md border text-white dark:text-black">
-        Discover the power of{" "}
-        <span className="text-blue-500">Tailwind CSS v4</span> with native CSS
-        variables and container queries with
-        <span className="text-blue-500">advanced animations</span>.
+        I build with DSA for thinking, Web for experience, and AI/ML for intelligence,
+        writing code that scales — and survives user behavior.
       </MaskContainer>
     </div>
   );
