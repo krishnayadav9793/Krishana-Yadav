@@ -92,19 +92,22 @@ export const TypewriterEffectSmooth = ({
       text: word.text.split(""),
     };
   });
+  console.log(wordsArray)
   const renderWords = () => {
     return (
       <div>
         {wordsArray.map((word, idx) => {
+          
           return (
             <div key={`word-${idx}`} className="inline-block">
-              {word.text.map((char, index) => (
-                <span
+              { word.text.map((char, index) => (
+                <pre
                   key={`char-${index}`}
-                  className={cn(`dark:text-white text-black `, word.className)}>
+                  className={cn(`dark:text-white text-black inline`, word.className)}>
                   {char}
-                </span>
+                </pre>
               ))}
+              
             </div>
           );
         })}
