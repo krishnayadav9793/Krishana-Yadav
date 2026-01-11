@@ -13,7 +13,7 @@ const people = [
     {
         id: 2,
         name: "Codeforces",
-        image: "https://scontent.fvns1-1.fna.fbcdn.net/v/t39.30808-6/271102688_4949757445046078_2415031066549490395_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=ZY4JYf21UkAQ7kNvwEgzU7i&_nc_oc=Adke-DMXe_ZeUKx0IXll9AZAvtZjzaXA4DIcIx5nI4HxSJLweDjQ9T7KuBCT1Bi69dpGXzCSv1sSe3xiLbJzw2xR&_nc_zt=23&_nc_ht=scontent.fvns1-1.fna&_nc_gid=HgXGbtCbqDqUolFCcadtLQ&oh=00_Afm_F8IE5jhShfA8QxRszhBPchhvx65AZRtYUZ7srVRE7Q&oe=6952E173",
+        image: "https://media2.dev.to/dynamic/image/width=1080,height=1080,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fcer3l19eex0wy900b101.jpg",
         href: "https://codeforces.com/profile/krishna_yadav_"
     },
     {
