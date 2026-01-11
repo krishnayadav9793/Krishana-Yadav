@@ -52,11 +52,11 @@ export function FloatingDockDemo() {
     },
 
     {
-      title: "Twitter",
+      title: "X",
       icon: (
         <IconBrandX className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
-      href: "#",
+      href: "https://x.com/Krishna46444939",
     },
     {
       title: "GitHub",

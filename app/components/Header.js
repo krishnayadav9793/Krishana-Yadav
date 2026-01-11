@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { MenuItem,Menu } from "../../components/ui/navbar-menu";
+import { Menu } from "../../components/ui/navbar-menu";
 import { cn } from "@/lib/utils";
 import Landing from "./workScreen/Landing";
 import WebScreen from "./workScreen/WebScreen";

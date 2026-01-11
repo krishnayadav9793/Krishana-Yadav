@@ -63,14 +63,14 @@ export const FloatingNav = ({
         )}>
         <div className="flex items-center gap-4">
 
-          <div className="w-14 h-14 dark:bg-white bg-black rounded-xl flex items-center justify-center">
-            <span className="dark:text-black text-white text-2xl font-extrabold tracking-tight">
+          <div className="w-14 h-14 dark:bg-white bg-black rounded-xl flex items-center justify-center ">
+            <span className="dark:text-black text-white text-2xl font-extrabold tracking-tight ">
               KY
             </span>
           </div>
 
 
-          <span className="dark:text-white text-2xl font-semibold tracking-wide whitespace-nowrap">
+          <span className="dark:text-white text-2xl font-semibold tracking-wide whitespace-nowrap hidden sm:block ">
             Krishana Yadav
           </span>
         </div>
@@ -82,7 +82,7 @@ export const FloatingNav = ({
             className={cn(
               "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500"
             )}>
-            <span className="block sm:hidden">{navItem.icon}</span>
+            {/* <span className="block sm:hidden">{navItem.icon}</span> */}
             <span className="hidden sm:block text-sm">{navItem.name}</span>
           </a>
         ))}
