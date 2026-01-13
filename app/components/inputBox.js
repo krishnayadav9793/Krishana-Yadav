@@ -15,17 +15,45 @@ export function SignupFormDemo() {
     const [btnText, setButtonText] = useState("Send");
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setButtonText("Sending...")
-        const massage = document.getElementById("firstname").value + " " + document.getElementById("lastname").value + "\n" + document.getElementById("text").value
-        const mail = document.getElementById("email").value
-        const sub = "Response from website"
-        await sendMail("karanyadav21398@gmail.com", sub, massage);
-        await sendMail(mail,"Thank you for your response","Thank you for your response")
-        // alert("massage sent")
-        document.getElementById("form").reset()
-        setButtonText("Massage sent!!")
-        await sleep(1000)
-        setButtonText("Send")
+        try {
+            setButtonText("Sending...")
+            
+            const mail = document.getElementById("email").value
+            const massage = document.getElementById("firstname").value + " " + document.getElementById("lastname").value + "\n" + 
+            +"Gmail:" + mail + "\n" +document.getElementById("text").value
+            const sub = "Response from website"
+            const data = { toMail: "karanyadav21398@gmail.com", subject: sub, massage: massage }
+            const res = await fetch("/api/send-mail", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', 
+                },
+                body: JSON.stringify(data),
+            })
+            const data1 = { toMail: mail, subject: "Thank you for Response", massage: "Thank you for Response." }
+            const res1 = await fetch("/api/send-mail", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', 
+                },
+                body: JSON.stringify(data1),
+            })
+
+            // await sendMail("karanyadav21398@gmail.com", sub, massage);
+            // await sendMail(mail, "Thank you for your response", "Thank you for your response")
+            // alert("massage sent")
+            document.getElementById("form").reset()
+            setButtonText("Massage sent!!")
+            await sleep(1000)
+            setButtonText("Send")
+        } catch (e) {
+            console.log(e)
+            document.getElementById("form").reset()
+            setButtonText("Something went wrong!!")
+            await sleep(1000)
+            setButtonText("Send")
+        }
+
     };
     return (
         <div

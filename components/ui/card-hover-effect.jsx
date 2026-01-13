@@ -39,6 +39,7 @@ export const HoverEffect = ({
           <Card>
             <CardTitle>{item.title}</CardTitle>
             <CardDescription>{item.description}</CardDescription>
+            <CardTechStack>{item.techstack}</CardTechStack>
           </Card>
         </a>
       ))}
@@ -80,6 +81,17 @@ export const CardDescription = ({
     <p
       className={cn("mt-8 dark:text-zinc-400 text-zinc-900 tracking-wide leading-relaxed text-sm", className)}>
       {children}
+    </p>
+  );
+};
+export const CardTechStack = ({
+  className,
+  children
+}) => {
+  return (
+    <p
+      className={cn("mt-8 dark:text-zinc-400 text-zinc-900 tracking-wide leading-relaxed text-sm", className)}>
+      Tech Stack:<br/>{children}
     </p>
   );
 };
