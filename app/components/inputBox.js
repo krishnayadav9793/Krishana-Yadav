@@ -44,7 +44,7 @@ export function SignupFormDemo() {
             // alert("massage sent")
             document.getElementById("form").reset()
             setButtonText("Massage sent!!")
-            await sleep(1000)
+            await sleep(1500)
             setButtonText("Send")
         } catch (e) {
             console.log(e)
