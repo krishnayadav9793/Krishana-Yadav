@@ -19,8 +19,8 @@ export function SignupFormDemo() {
             setButtonText("Sending...")
             
             const mail = document.getElementById("email").value
-            const massage = document.getElementById("firstname").value + " " + document.getElementById("lastname").value + "\n" + 
-            +"Gmail:" + mail + "\n" +document.getElementById("text").value
+            const massage = `${document.getElementById("firstname").value}  ${document.getElementById("lastname").value} \n 
+             Gmail:${mail} \n${document.getElementById("text").value}`
             const sub = "Response from website"
             const data = { toMail: "karanyadav21398@gmail.com", subject: sub, massage: massage }
             const res = await fetch("/api/send-mail", {
@@ -30,7 +30,8 @@ export function SignupFormDemo() {
                 },
                 body: JSON.stringify(data),
             })
-            const data1 = { toMail: mail, subject: "Thank you for Response", massage: "Thank you for Response." }
+            const massage1=`Dear ${document.getElementById("firstname").value},\n\nThank you for taking the time to respond through my website. I truly appreciate you reaching out.\n\nI’m especially grateful for the advice you shared. Your insights are valuable and will definitely help me improve and move in the right direction.\n\nThank you once again for your support and guidance. I look forward to staying connected.\n\nWarm regards,\nKrishna Yadav`
+            const data1 = { toMail: mail, subject: "Thank You for Your Response", massage: massage1 }
             const res1 = await fetch("/api/send-mail", {
                 method: 'POST',
                 headers: {
