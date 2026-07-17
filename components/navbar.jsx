@@ -95,58 +95,49 @@ export default function Navbar() {
           {/* Action Buttons */}
           <div className="flex items-center gap-3">
             {/* Theme Toggle Switcher */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <button
               onClick={toggleTheme}
-              className="w-10 h-10 rounded-full border border-border bg-card flex items-center justify-center text-foreground hover:bg-muted cursor-pointer transition-colors shadow-sm"
+              className="w-10 h-10 rounded-full border border-border bg-card flex items-center justify-center text-foreground hover:bg-muted cursor-pointer transition-all duration-300 active:scale-95 shadow-sm"
               aria-label="Toggle theme"
             >
               {theme === "dark" ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-indigo-600" />}
-            </motion.button>
+            </button>
 
             {/* Mobile Menu Trigger */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden w-10 h-10 rounded-full border border-border bg-card flex items-center justify-center text-foreground hover:bg-muted cursor-pointer transition-colors"
+              className="md:hidden w-10 h-10 rounded-full border border-border bg-card flex items-center justify-center text-foreground hover:bg-muted cursor-pointer transition-all duration-300 active:scale-95"
               aria-label="Toggle navigation menu"
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}
-            </motion.button>
+            </button>
           </div>
         </div>
-      </motion.header>
 
-      {/* Mobile Drawer Navigation */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed top-[70px] inset-x-0 z-[99] md:hidden bg-background/95 backdrop-blur-2xl border-b border-border py-6 px-8 flex flex-col gap-4 shadow-xl"
-          >
-            {navItems.map((item, idx) => (
-              <motion.a
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: idx * 0.05 }}
+        {/* Mobile Drawer Navigation */}
+        <div
+          className={`absolute top-full inset-x-0 z-[99] md:hidden bg-background/95 backdrop-blur-2xl border-b border-border shadow-xl transition-all duration-300 ease-in-out origin-top ${
+            isOpen
+              ? "max-h-[400px] opacity-100 pointer-events-auto visible"
+              : "max-h-0 opacity-0 pointer-events-none invisible overflow-hidden"
+          }`}
+        >
+          <div className="py-6 px-8 flex flex-col gap-4">
+            {navItems.map((item) => (
+              <a
                 key={item.label}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className={`py-3 text-lg font-display font-medium border-b border-border/40 ${
-                  activeSection === item.href.slice(1) ? "text-indigo-500 font-bold" : "text-muted-foreground"
+                className={`py-3 text-lg font-display font-medium border-b border-border/40 transition-colors duration-200 ${
+                  activeSection === item.href.slice(1) ? "text-indigo-500 font-bold" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {item.label}
-              </motion.a>
+              </a>
             ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      </motion.header>
     </>
   );
 }

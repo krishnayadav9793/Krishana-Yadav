@@ -9,30 +9,30 @@ import { ExternalLink, Github, Trophy, Smartphone, Flame } from "lucide-react";
 // Predefined fallback project data
 const projects = [
   {
-    title: "AgroTech Smart System",
-    description: "An AI-powered smart agriculture ecosystem that monitors soil conditions, predicts crop health using CNN models, and automates irrigation. Built with Next.js, FastAPI, and TensorFlow.",
-    tags: ["Next.js", "FastAPI", "TensorFlow", "PostgreSQL"],
-    demoLink: "https://github.com",
-    codeLink: "https://github.com",
-    category: "AI / Web",
+    title: "Learn Flex",
+    description: "Learn Flex is a full-stack competitive learning platform that enables students to prepare for technical exams through weekly quizzes, topic-wise practice questions, and real-time 1v1 quiz battles. Users selecting the same exam are automatically matched, given a randomized 10-question challenge, and compete within 10 minutes, with the highest scorer declared the winner.",
+    tags: ["React", "Express", "JsonWebToken", "Socket.io" ,"Tailwind" ,"Vercel" , "Render"],
+    demoLink: "https://learn-flex-yw72.vercel.app/HomePage",
+    codeLink: "https://github.com/krishnayadav9793/Learn_Flex",
+    category: "Full Stack",
     color: "from-emerald-500 to-teal-600"
   },
   {
-    title: "CollabCode IDE",
-    description: "A collaborative real-time code editor featuring a shared cursor, integrated code execution compiler, and voice communication channels. Built on WebSockets, React, and Node.js.",
-    tags: ["React", "Node.js", "WebSockets", "Docker"],
-    demoLink: "https://github.com",
-    codeLink: "https://github.com",
+    title: "Devsync",
+    description: "DevSync is a modern, real-time collaborative development workspace designed to streamline remote teamwork for engineering and programming teams. By unifying code editing, project management, and live communication, DevSync eliminates the friction of switching between multiple standalone tools like text editors, chat apps, and video conferencing software.",
+    tags: ["React", "Node.js", "WebSockets", "Docker" , "WEBRTC" , "Express" ,"Tailwind CSS" ,"JWT"],
+    demoLink: "https://devsync-three.vercel.app/",
+    codeLink: "https://github.com/krishnayadav9793/devsync",
     category: "Full Stack",
     color: "from-blue-500 to-indigo-600"
   },
   {
-    title: "CryptoForge Dashboard",
-    description: "A comprehensive dashboard that tracks cryptocurrency rates, visualizes historical price actions, and predicts future trends using LSTM Neural Networks.",
-    tags: ["Next.js", "Chart.js", "Python", "Flask"],
-    demoLink: "https://github.com",
-    codeLink: "https://github.com",
-    category: "Web / ML",
+    title: "Game On",
+    description: "Developed and deployed a cross-platform Multi-Game Android Application featuring 10+ interactive games using React Native and Expo. Built a responsive, component-based architecture for a seamless user experience, collaborated using Git/GitHub, and distributed the application through Expo EAS for testing and deployment.",
+    tags: ["React Native", "Expo", "Git/ GitHub", "Expo EAS"],
+    demoLink: "https://github.com/krishnayadav9793/Game-On",
+    codeLink: "https://github.com/krishnayadav9793/Game-On",
+    category: "Android App",
     color: "from-amber-500 to-orange-600"
   }
 ];
@@ -119,7 +119,7 @@ function ProjectCard({ project }) {
 function AnimatedNumber({ value, prefix = "" }) {
   const [displayValue, setDisplayValue] = useState(0);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-20px" });
 
   useEffect(() => {
     if (!isInView || !value) return;
@@ -191,7 +191,7 @@ function ProfileStatsCard({ title, icon: Icon, solved, current, currentLabel = "
       style={{ rotateX, rotateY }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="preserve-3d p-6 rounded-3xl bg-neutral-100/60 dark:bg-neutral-900/50 border border-border/40 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col justify-between h-[210px] select-none cursor-pointer relative overflow-hidden glow-spotlight [--glow-color:rgba(99,102,241,0.04)] dark:[--glow-color:rgba(255,255,255,0.02)]"
+      className="preserve-3d p-6 rounded-3xl bg-neutral-100/60 dark:bg-neutral-900/50 border border-border/40 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col justify-between min-h-[210px] h-auto select-none cursor-pointer relative overflow-hidden glow-spotlight [--glow-color:rgba(99,102,241,0.04)] dark:[--glow-color:rgba(255,255,255,0.02)]"
     >
       {/* Top Header Row */}
       <div className="flex items-center justify-between">

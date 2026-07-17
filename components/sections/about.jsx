@@ -6,32 +6,36 @@ import { GraduationCap, MapPin, Calendar, Heart, Terminal, BookOpen, Layers, Awa
 
 const educationTimeline = [
   {
-    year: "2023 - Present",
+    year: "2024 - Present",
     title: "Bachelor of Technology in Computer Science",
-    institution: "Indian Institute of Technology (IIT) / Engineering University",
+    institution: "Indian Institute of Technology (IIT) Vadodara",
     description: "Deepening knowledge in advanced algorithms, machine learning, compiler design, and systems engineering. Maintaining a high GPA.",
     icon: GraduationCap
   },
   {
     year: "2021 - 2023",
     title: "Senior Secondary Education (High School)",
-    institution: "Science & Mathematics Board",
+    institution: "Kendriya Vidyalaya Azamgarh",
     description: "Focused heavily on physics, chemistry, and mathematics. Developed solid foundational problem-solving capacities.",
     icon: BookOpen
   },
   {
     year: "2020",
     title: "Secondary School Certification",
-    institution: "National Public School",
+    institution: "Kendriya Vidyalaya Azamgarh",
     description: "Introduced to basic computing and logic. Graduated with merit honors.",
     icon: Terminal
   }
 ];
 
 const coreSkills = [
-  { category: "Languages", items: ["C++", "JavaScript", "Python", "SQL", "HTML5/CSS3"] },
-  { category: "Frameworks", items: ["Next.js", "React.js", "Node.js", "FastAPI", "Express.js"] },
-  { category: "Databases & Tools", items: ["PostgreSQL", "MongoDB", "Git/GitHub", "Docker", "Linux"] }
+  { category: "Languages", items: ["C++", "JavaScript", "Python", "SQL", "HTML5/CSS3" , "TypeScript" ] },
+  { category: "Frontend", items: ["Next.js", "React.js", "Tailwind", "HTML5", "CSS3" ] },
+  { category: "Mobile Development", items: ["React Native" , "Expo" ," Expo Hosting"] },
+  { category: "Backend", items: ["Express", "Node js", "Socket.io", "REST API"] },
+  { category: "AI/ML", items: ["NumPy", "Pandas", "Matplotlib", "Seaborn","Scikit-learn"] },
+  { category: "Databases & Tools", items: ["PostgreSQL", "MongoDB", "Git/GitHub", "Docker", "Linux" , "Vercel", "VS Code" ,"DockerHub" , "Render","Postman" , "Jupyter Notebook" , "MySql"] },
+  { category: "CS Core", items: ["OOPS", "DBMS", "Computer Organization & Architecture"] }
 ];
 
 export default function AboutSection() {
