@@ -242,15 +242,21 @@ export default function WorkSection() {
 
   useEffect(() => {
     async function loadData() {
+      try{
+        const response = await fetch("/api/github/")
+        console.log(response)
+      }catch(e){
+        console.log(e);
+      }
       try {
         const lc = await getLeetCode();
-        let solvedLc = "720";
+        let solvedLc = "500+";
         if (lc && lc.totalSolved) {
           solvedLc = lc.totalSolved.toString();
         }
 
-        let currentRating = "1824";
-        let maxRating = "1940";
+        let currentRating = "1600+";
+        let maxRating = "1700+";
         try {
           const resRating = await fetch("/api/getleetcoderating", {
             method: "POST",
@@ -279,17 +285,17 @@ export default function WorkSection() {
 
       try {
         const cfStatus = await getCodeForces();
-        let solvedCfCount = "450";
+        let solvedCfCount = "400+";
         if (cfStatus && cfStatus.result) {
           solvedCfCount = cfStatus.result.filter(sub => sub.verdict === "OK").length.toString();
         }
 
         const cfInfo = await getCodeforcesInfo();
-        let currentCfRating = "1512";
-        let maxCfRating = "1612";
+        let currentCfRating = "1100+";
+        let maxCfRating = "1200+";
         if (cfInfo && cfInfo.result && cfInfo.result[0]) {
-          currentCfRating = cfInfo.result[0].rating?.toString() || "1512";
-          maxCfRating = cfInfo.result[0].maxRating?.toString() || "1612";
+          currentCfRating = cfInfo.result[0].rating?.toString() || "1100+";
+          maxCfRating = cfInfo.result[0].maxRating?.toString() || "1200+";
         }
 
         setCfData({

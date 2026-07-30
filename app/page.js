@@ -15,6 +15,11 @@ const WorkSection = dynamic(() => import("@/components/sections/work"), {
   ssr: false
 });
 
+const GithubSection = dynamic(() => import("@/components/sections/github"), {
+  loading: () => <div className="min-h-screen bg-background" />,
+  ssr: false
+});
+
 const AboutSection = dynamic(() => import("@/components/sections/about"), {
   loading: () => <div className="min-h-screen bg-background" />,
   ssr: false
@@ -38,6 +43,7 @@ export default function Home() {
         <main className="relative min-h-screen bg-background text-foreground">
           <HeroSection />
           <WorkSection />
+          <GithubSection />
           <AboutSection />
           <ContactSection />
         </main>

@@ -8,6 +8,7 @@ import { Sun, Moon, Menu, X, Terminal } from "lucide-react";
 const navItems = [
   { label: "Home", href: "#home" },
   { label: "Work", href: "#work" },
+  { label: "GitHub", href: "#github" },
   { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" }
 ];
@@ -24,7 +25,7 @@ export default function Navbar() {
       setScrolled(window.scrollY > 20);
 
       // Track active section on scroll
-      const sections = ["home", "work", "about", "contact"];
+      const sections = ["home", "work", "github", "about", "contact"];
       const scrollPos = window.scrollY + 200;
 
       for (const section of sections) {
