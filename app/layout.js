@@ -1,4 +1,4 @@
-import { Space_Grotesk, Outfit } from "next/font/google";
+import { Space_Grotesk, Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/navbar";
@@ -18,15 +18,26 @@ const outfit = Outfit({
   display: "swap",
 });
 
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
 export const metadata = {
-  title: "Krishana Yadav | Portfolio",
-  description: "Portfolio of Krishana Yadav - Competitive Programmer, DSA Enthusiast, Web Developer & AI/ML Hobbyist",
+  title: "Krishana Yadav | Software Engineer & CP Specialist",
+  description: "Portfolio of Krishana Yadav - Competitive Programmer, DSA Enthusiast, Full-Stack Web Developer & AI/ML Hobbyist at IIIT Vadodara (IIITV)",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${outfit.variable}`} style={{ scrollBehavior: 'smooth' }}>
-      <body className="font-sans antialiased min-h-screen relative selection:bg-primary/20 selection:text-primary">
+    <html
+      lang="en"
+      className={`${spaceGrotesk.variable} ${outfit.variable} ${jetbrainsMono.variable} dark`}
+      style={{ scrollBehavior: "smooth" }}
+    >
+      <body className="font-sans antialiased min-h-screen bg-[#050507] text-[#f4f4f5] relative selection:bg-indigo-500/25 selection:text-indigo-300">
         <ThemeProvider>
           <CustomCursor />
           <Navbar />

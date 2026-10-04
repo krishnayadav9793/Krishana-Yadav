@@ -3,31 +3,43 @@
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import Loader from "@/components/loader";
+import NoiseOverlay from "@/components/ui/noise-overlay";
+import Footer from "@/components/footer";
 
-// Lazily load sections for optimized initial rendering (lazy loading)
+// Lazily load sections for optimized initial rendering & performance
 const HeroSection = dynamic(() => import("@/components/sections/hero"), {
-  loading: () => <div className="min-h-screen bg-background" />,
-  ssr: false
+  loading: () => <div className="min-h-screen bg-[#050507]" />,
+  ssr: false,
 });
 
 const WorkSection = dynamic(() => import("@/components/sections/work"), {
-  loading: () => <div className="min-h-screen bg-background" />,
-  ssr: false
+  loading: () => <div className="min-h-screen bg-[#050507]" />,
+  ssr: false,
 });
 
 const GithubSection = dynamic(() => import("@/components/sections/github"), {
-  loading: () => <div className="min-h-screen bg-background" />,
-  ssr: false
+  loading: () => <div className="min-h-screen bg-[#050507]" />,
+  ssr: false,
 });
 
 const AboutSection = dynamic(() => import("@/components/sections/about"), {
-  loading: () => <div className="min-h-screen bg-background" />,
-  ssr: false
+  loading: () => <div className="min-h-screen bg-[#050507]" />,
+  ssr: false,
+});
+
+const SkillsSection = dynamic(() => import("@/components/sections/skills"), {
+  loading: () => <div className="min-h-screen bg-[#050507]" />,
+  ssr: false,
+});
+
+const EducationSection = dynamic(() => import("@/components/sections/education"), {
+  loading: () => <div className="min-h-screen bg-[#050507]" />,
+  ssr: false,
 });
 
 const ContactSection = dynamic(() => import("@/components/sections/contact"), {
-  loading: () => <div className="min-h-screen bg-background" />,
-  ssr: false
+  loading: () => <div className="min-h-screen bg-[#050507]" />,
+  ssr: false,
 });
 
 export default function Home() {
@@ -35,17 +47,21 @@ export default function Home() {
 
   return (
     <>
-      {/* Percentage count-up preloader */}
+      {/* High-precision percentage count-up preloader */}
       <Loader onComplete={() => setLoadingComplete(true)} />
 
       {/* Main page content reveals after loader completes */}
       {loadingComplete && (
-        <main className="relative min-h-screen bg-background text-foreground">
+        <main className="relative min-h-screen bg-[#050507] text-white overflow-hidden selection:bg-indigo-500/25 selection:text-indigo-300">
+          <NoiseOverlay />
           <HeroSection />
           <WorkSection />
           <GithubSection />
           <AboutSection />
+          <SkillsSection />
+          <EducationSection />
           <ContactSection />
+          <Footer />
         </main>
       )}
     </>

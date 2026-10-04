@@ -25,7 +25,8 @@
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "react-theme-switch-animation": "^1.0.0",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "three": "^0.186.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

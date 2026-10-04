@@ -1,259 +1,172 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform, useInView } from "motion/react";
+import { motion, useInView } from "motion/react";
 import { getLeetCode } from "@/lib/leetCode";
 import { getCodeForces, getCodeforcesInfo } from "@/lib/codeforce";
-import { ExternalLink, Github, Trophy, Smartphone, Flame } from "lucide-react";
+import { ExternalLink, Github, Trophy, Smartphone, ArrowUpRight, Radio, Activity, Code2 } from "lucide-react";
+import SectionHeader from "@/components/ui/section-header";
 
-// Predefined fallback project data
 const projects = [
   {
-    title: "Learn Flex",
-    description: "Learn Flex is a full-stack competitive learning platform that enables students to prepare for technical exams through weekly quizzes, topic-wise practice questions, and real-time 1v1 quiz battles. Users selecting the same exam are automatically matched, given a randomized 10-question challenge, and compete within 10 minutes, with the highest scorer declared the winner.",
-    tags: ["React", "Express", "JsonWebToken", "Socket.io" ,"Tailwind" ,"Vercel" , "Render"],
-    demoLink: "https://learn-flex-yw72.vercel.app/HomePage",
-    codeLink: "https://github.com/krishnayadav9793/Learn_Flex",
-    category: "Full Stack",
-    color: "from-emerald-500 to-teal-600"
-  },
-  {
+    id: "devsync",
     title: "Devsync",
-    description: "DevSync is a modern, real-time collaborative development workspace designed to streamline remote teamwork for engineering and programming teams. By unifying code editing, project management, and live communication, DevSync eliminates the friction of switching between multiple standalone tools like text editors, chat apps, and video conferencing software.",
-    tags: ["React", "Node.js", "WebSockets", "Docker" , "WEBRTC" , "Express" ,"Tailwind CSS" ,"JWT"],
+    description:
+      "DevSync is a modern, real-time collaborative development workspace designed to streamline remote teamwork for engineering and programming teams. By unifying code editing, project management, and live communication, DevSync eliminates the friction of switching between multiple standalone tools like text editors, chat apps, and video conferencing software.",
+    tags: ["React", "Node.js", "WebSockets", "Docker", "WEBRTC", "Express", "Tailwind CSS", "JWT"],
     demoLink: "https://devsync-three.vercel.app/",
     codeLink: "https://github.com/krishnayadav9793/devsync",
     category: "Full Stack",
-    color: "from-blue-500 to-indigo-600"
+    featured: true,
   },
   {
+    id: "learn-flex",
+    title: "Learn Flex",
+    description:
+      "Learn Flex is a full-stack competitive learning platform that enables students to prepare for technical exams through weekly quizzes, topic-wise practice questions, and real-time 1v1 quiz battles. Users selecting the same exam are automatically matched, given a randomized 10-question challenge, and compete within 10 minutes, with the highest scorer declared the winner.",
+    tags: ["React", "Express", "JsonWebToken", "Socket.io", "Tailwind", "Vercel", "Render"],
+    demoLink: "https://learn-flex-yw72.vercel.app/HomePage",
+    codeLink: "https://github.com/krishnayadav9793/Learn_Flex",
+    category: "Full Stack",
+    featured: false,
+  },
+  {
+    id: "game-on",
     title: "Game On",
-    description: "Developed and deployed a cross-platform Multi-Game Android Application featuring 10+ interactive games using React Native and Expo. Built a responsive, component-based architecture for a seamless user experience, collaborated using Git/GitHub, and distributed the application through Expo EAS for testing and deployment.",
+    description:
+      "Developed and deployed a cross-platform Multi-Game Android Application featuring 10+ interactive games using React Native and Expo. Built a responsive, component-based architecture for a seamless user experience, collaborated using Git/GitHub, and distributed the application through Expo EAS for testing and deployment.",
     tags: ["React Native", "Expo", "Git/ GitHub", "Expo EAS"],
     demoLink: "https://github.com/krishnayadav9793/Game-On",
     codeLink: "https://github.com/krishnayadav9793/Game-On",
     category: "Android App",
-    color: "from-amber-500 to-orange-600"
+    featured: false,
+    image: "/Game-on.png"
   }
 ];
 
-// Interactive Tilt Card wrapper for projects
-function ProjectCard({ project }) {
-  const cardRef = useRef(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  
-  const springConfig = { damping: 20, stiffness: 150 };
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [10, -10]), springConfig);
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-10, 10]), springConfig);
-
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left - width / 2;
-    const mouseY = e.clientY - rect.top - height / 2;
-    x.set(mouseX / width);
-    y.set(mouseY / height);
-
-    // Apply mouse glow coordinates
-    cardRef.current.style.setProperty("--mouse-x", `${(e.clientX - rect.left)}px`);
-    cardRef.current.style.setProperty("--mouse-y", `${(e.clientY - rect.top)}px`);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  return (
-    <motion.div
-      ref={cardRef}
-      style={{ rotateX, rotateY }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="preserve-3d relative flex flex-col justify-between p-6 md:p-8 rounded-3xl bg-neutral-100/60 dark:bg-neutral-900/50 border border-border/40 shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden cursor-pointer glow-spotlight [--glow-color:rgba(99,102,241,0.08)] dark:[--glow-color:rgba(255,255,255,0.03)]"
-    >
-      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-500/10 to-cyan-500/10 blur-xl rounded-full" />
-      
-      <div className="preserve-3d space-y-4">
-        <div className="flex items-center justify-between">
-          <span className="text-xs font-mono px-3 py-1 rounded-full bg-neutral-200/50 dark:bg-neutral-800/60 text-muted-foreground">
-            {project.category}
-          </span>
-          <div className="flex items-center gap-2 text-muted-foreground translate-z-[10px]">
-            <a href={project.codeLink} target="_blank" className="hover:text-foreground hover:scale-110 transition-all">
-              <Github size={18} />
-            </a>
-            <a href={project.demoLink} target="_blank" className="hover:text-foreground hover:scale-110 transition-all">
-              <ExternalLink size={18} />
-            </a>
-          </div>
-        </div>
-
-        <h3 className="text-xl font-bold font-display tracking-tight text-foreground translate-z-[20px]">
-          {project.title}
-        </h3>
-
-        <p className="text-sm font-sans font-light text-muted-foreground leading-relaxed">
-          {project.description}
-        </p>
-      </div>
-
-      <div className="preserve-3d flex flex-wrap gap-2 mt-6 translate-z-[15px]">
-        {project.tags.map((tag) => (
-          <span
-            key={tag}
-            className="text-[11px] font-mono font-medium px-2.5 py-1 rounded-md bg-neutral-200/40 dark:bg-neutral-800/40 text-foreground border border-border/20"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-    </motion.div>
-  );
-}
-
-// Count-up helper component that starts when inside viewport
 function AnimatedNumber({ value, prefix = "" }) {
   const [displayValue, setDisplayValue] = useState(0);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-20px" });
+  const isInView = useInView(ref, { once: true, margin: "-10px" });
 
   useEffect(() => {
     if (!isInView || !value) return;
-    
-    let start = 0;
+
     const end = parseInt(value, 10);
     if (isNaN(end) || end === 0) {
       setDisplayValue(value);
       return;
     }
 
-    const duration = 1500; // 1.5 seconds
-    const incrementTime = Math.max(Math.floor(duration / end), 16);
-    
-    const step = () => {
-      start += Math.max(Math.floor(end / 60), 1);
+    const duration = 1200;
+    let start = 0;
+    const increment = Math.max(Math.floor(end / 40), 1);
+    const stepTime = Math.max(Math.floor(duration / (end / increment)), 16);
+
+    const timer = setInterval(() => {
+      start += increment;
       if (start >= end) {
         setDisplayValue(end);
+        clearInterval(timer);
       } else {
         setDisplayValue(start);
-        setTimeout(step, incrementTime);
       }
-    };
-    
-    step();
+    }, stepTime);
+
+    return () => clearInterval(timer);
   }, [isInView, value]);
 
   return (
-    <span ref={ref} className="font-display font-bold tracking-tight text-3xl md:text-4xl text-foreground">
-      {prefix}
-      {displayValue}
+    <span ref={ref} className="font-display font-bold text-white tracking-tight">
+      {prefix}{displayValue}
     </span>
   );
 }
 
-// Coding Profile stats container
-function ProfileStatsCard({ title, icon: Icon, solved, current, currentLabel = "Rating", max, maxLabel = "Max Rating", themeColor }) {
+function ProfileTelemetryCard({ title, icon: Icon, solved, current, currentLabel = "Rating", max, maxLabel = "Max Rating", accentColor, link }) {
   const cardRef = useRef(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  
-  const springConfig = { damping: 15, stiffness: 120 };
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [8, -8]), springConfig);
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-8, 8]), springConfig);
 
   const handleMouseMove = (e) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left - width / 2;
-    const mouseY = e.clientY - rect.top - height / 2;
-    x.set(mouseX / width);
-    y.set(mouseY / height);
-
-    // Apply mouse glow coordinates for gradient background lighting
-    cardRef.current.style.setProperty("--mouse-x", `${(e.clientX - rect.left)}px`);
-    cardRef.current.style.setProperty("--mouse-y", `${(e.clientY - rect.top)}px`);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
+    cardRef.current.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+    cardRef.current.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
   };
 
   return (
-    <motion.div
+    <a
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
       ref={cardRef}
-      style={{ rotateX, rotateY }}
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="preserve-3d p-6 rounded-3xl bg-neutral-100/60 dark:bg-neutral-900/50 border border-border/40 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col justify-between min-h-[210px] h-auto select-none cursor-pointer relative overflow-hidden glow-spotlight [--glow-color:rgba(99,102,241,0.04)] dark:[--glow-color:rgba(255,255,255,0.02)]"
+      className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-3xl bg-[#0a0b12]/80 border border-white/[0.08] hover:border-white/20 transition-all duration-300 overflow-hidden cursor-pointer shadow-[0_10px_30px_rgba(0,0,0,0.5)] glow-spotlight"
+      style={{ "--glow-color": "rgba(99,102,241,0.06)" }}
     >
-      {/* Top Header Row */}
-      <div className="flex items-center justify-between">
+      {/* Background Accent Gradient */}
+      <div className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-15 pointer-events-none ${accentColor}`} />
+
+      {/* Header */}
+      <div className="flex items-center justify-between z-10">
         <div className="flex items-center gap-3">
-          <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-white ${themeColor} shadow-md`}>
-            <Icon size={18} />
+          <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
+            <Icon size={18} className="text-white" />
           </div>
-          <span className="font-display font-bold text-base text-foreground">{title}</span>
+          <div>
+            <h4 className="font-display font-bold text-base text-white group-hover:text-indigo-300 transition-colors flex items-center gap-1.5">
+              <span>{title}</span>
+              <ArrowUpRight size={13} className="text-neutral-500 group-hover:text-white transition-colors" />
+            </h4>
+            <span className="font-mono text-[10px] text-neutral-400">TELEMETRY SYNCED</span>
+          </div>
         </div>
-        <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 font-mono text-[9px] uppercase tracking-wider font-semibold">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-          <span>Synced</span>
+
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-[9px] uppercase tracking-wider font-semibold">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+          <span>Live</span>
         </div>
       </div>
 
-      {/* Middle Row: Large Solved Number */}
-      <div className="pt-2 text-left">
-        <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Solved Questions</p>
-        <div className="flex items-baseline gap-1 mt-0.5">
+      {/* Middle metric */}
+      <div className="pt-6 pb-4 z-10">
+        <span className="font-mono text-[10px] uppercase text-neutral-400 tracking-widest block">
+          Solved Questions
+        </span>
+        <div className="text-3xl sm:text-4xl mt-1 flex items-baseline gap-1">
           <AnimatedNumber value={solved} />
-          <span className="text-xs text-muted-foreground font-mono">/ total</span>
+          <span className="text-xs font-mono text-neutral-400">/ total</span>
         </div>
       </div>
 
-      {/* Bottom Grid: Current & Max Ratings */}
-      <div className="grid grid-cols-2 gap-4 border-t border-border/40 pt-3 text-left">
+      {/* Bottom Ratings row */}
+      <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/[0.06] z-10">
         <div>
-          <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-wider">{currentLabel}</p>
-          <p className="text-base font-bold font-display text-foreground mt-0.5">
+          <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block">{currentLabel}</span>
+          <div className="text-lg sm:text-xl font-bold font-display mt-0.5">
             <AnimatedNumber value={current} />
-          </p>
+          </div>
         </div>
         <div>
-          <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-wider">{maxLabel}</p>
-          <p className="text-base font-bold font-display text-foreground mt-0.5">
+          <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block">{maxLabel}</span>
+          <div className="text-lg sm:text-xl font-bold font-display mt-0.5">
             <AnimatedNumber value={max} />
-          </p>
+          </div>
         </div>
       </div>
-    </motion.div>
+    </a>
   );
 }
 
 export default function WorkSection() {
   const [leetcodeData, setLeetcodeData] = useState({ solved: "0", currentRating: "0", maxRating: "0" });
   const [cfData, setCfData] = useState({ solved: "0", currentRating: "0", maxRating: "0" });
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadData() {
-      try{
-        const response = await fetch("/api/github/")
-        console.log(response)
-      }catch(e){
-        console.log(e);
-      }
       try {
         const lc = await getLeetCode();
         let solvedLc = "500+";
-        if (lc && lc.totalSolved) {
-          solvedLc = lc.totalSolved.toString();
-        }
+        if (lc && lc.totalSolved) solvedLc = lc.totalSolved.toString();
 
         let currentRating = "1600+";
         let maxRating = "1700+";
@@ -264,121 +177,276 @@ export default function WorkSection() {
             body: JSON.stringify({ username: "_krishna__yadav_" })
           });
           const ratingData = await resRating.json();
-          if (ratingData && ratingData.rating) {
-            currentRating = ratingData.rating.toString();
-          }
-          if (ratingData && ratingData.maxRating) {
-            maxRating = ratingData.maxRating.toString();
-          }
+          if (ratingData?.rating) currentRating = ratingData.rating.toString();
+          if (ratingData?.maxRating) maxRating = ratingData.maxRating.toString();
         } catch (err) {
-          console.error("Error fetching local leetcode rating:", err);
+          console.error("Local LeetCode fetch error:", err);
         }
 
-        setLeetcodeData({
-          solved: solvedLc,
-          currentRating: currentRating,
-          maxRating: maxRating
-        });
+        setLeetcodeData({ solved: solvedLc, currentRating, maxRating });
       } catch (err) {
-        console.error("Error loading LeetCode stats:", err);
+        console.error("LeetCode data error:", err);
       }
 
       try {
         const cfStatus = await getCodeForces();
         let solvedCfCount = "400+";
-        if (cfStatus && cfStatus.result) {
-          solvedCfCount = cfStatus.result.filter(sub => sub.verdict === "OK").length.toString();
+        if (cfStatus?.result) {
+          solvedCfCount = cfStatus.result.filter((s) => s.verdict === "OK").length.toString();
         }
 
         const cfInfo = await getCodeforcesInfo();
         let currentCfRating = "1100+";
         let maxCfRating = "1200+";
-        if (cfInfo && cfInfo.result && cfInfo.result[0]) {
+        if (cfInfo?.result?.[0]) {
           currentCfRating = cfInfo.result[0].rating?.toString() || "1100+";
           maxCfRating = cfInfo.result[0].maxRating?.toString() || "1200+";
         }
 
-        setCfData({
-          solved: solvedCfCount,
-          currentRating: currentCfRating,
-          maxRating: maxCfRating
-        });
+        setCfData({ solved: solvedCfCount, currentRating: currentCfRating, maxRating: maxCfRating });
       } catch (err) {
-        console.error("Error loading Codeforces stats:", err);
+        console.error("Codeforces data error:", err);
       }
-      setLoading(false);
     }
     loadData();
   }, []);
 
+  const featuredProject = projects.find((p) => p.featured) || projects[0];
+  const secondaryProjects = projects.filter((p) => p.id !== featuredProject.id);
+
   return (
-    <section id="work" className="relative py-24 bg-background">
-      {/* Background gradients */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(99,102,241,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(99,102,241,0.02)_1px,transparent_1px)] bg-[size:5rem_5rem]" />
+    <section id="work" className="relative py-28 md:py-36 bg-[#050507]">
+      {/* Background Grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:5rem_5rem] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 w-full">
-        {/* Section Title */}
-        <div className="flex flex-col items-center text-center space-y-4 mb-16">
-          <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground/90 to-neutral-400">
-            Work & Analytics
-          </h2>
-          <div className="w-16 h-1 bg-indigo-500 rounded-full" />
-          <p className="text-base text-muted-foreground font-sans font-light max-w-lg">
-            A real-time overview of my computer science projects and daily progress tracking on popular programming competitive hubs.
-          </p>
-        </div>
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 relative z-10 w-full">
+        {/* Section Header */}
+        <SectionHeader
+          badge="01 // WORK & TELEMETRY"
+          title="Featured Projects & Competitive Analytics"
+          description="A real-time overview of my computer science projects and daily progress tracking on popular programming competitive hubs."
+        />
 
-        {/* Dynamic Coding Platform Stats Row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-16">
-          <ProfileStatsCard
+        {/* Coding Hubs Live Telemetry Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+          <ProfileTelemetryCard
             title="LeetCode"
             icon={Code2}
-            themeColor="bg-[#ffa116]"
+            accentColor="bg-amber-500"
             solved={leetcodeData.solved !== "0" ? leetcodeData.solved : "720"}
             current={leetcodeData.currentRating !== "0" ? leetcodeData.currentRating : "1824"}
-            currentLabel="Rating"
+            currentLabel="Contest Rating"
             max={leetcodeData.maxRating !== "0" ? leetcodeData.maxRating : "1940"}
-            maxLabel="Max Rating"
+            maxLabel="Top Rating"
+            link="https://leetcode.com/u/_krishna__yadav_/"
           />
-          <ProfileStatsCard
+          <ProfileTelemetryCard
             title="Codeforces"
             icon={Trophy}
-            themeColor="bg-[#3182ce]"
+            accentColor="bg-cyan-500"
             solved={cfData.solved !== "0" ? cfData.solved : "450"}
             current={cfData.currentRating !== "0" ? cfData.currentRating : "1512"}
-            currentLabel="Rating"
+            currentLabel="Pupil Rating"
             max={cfData.maxRating !== "0" ? cfData.maxRating : "1612"}
             maxLabel="Max Rating"
+            link="https://codeforces.com/profile/krishna_yadav_"
           />
         </div>
 
-        {/* Projects Showcase Title */}
-        <h3 className="text-2xl font-bold font-display tracking-tight text-left mb-8 text-foreground">
-          Featured Projects
-        </h3>
+        {/* FEATURED PROJECT: Flagship Bento Card */}
+        <div className="mb-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="group relative rounded-3xl bg-[#090a12]/90 border border-white/[0.08] hover:border-white/20 p-6 sm:p-8 md:p-10 transition-all duration-300 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
+          >
+            {/* Ambient Background Glow */}
+            <div className="absolute -top-24 -right-24 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, idx) => (
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              
+              {/* Left Column: Project Details */}
+              <div className="lg:col-span-7 flex flex-col justify-between space-y-6 text-left">
+                <div>
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="px-3 py-1 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 font-mono text-xs font-semibold">
+                      FEATURED PROJECT // {featuredProject.category.toUpperCase()}
+                    </span>
+                    <span className="text-xs font-mono text-neutral-400">ARCH: DISTRIBUTED</span>
+                  </div>
+
+                  <h3 className="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight group-hover:text-indigo-200 transition-colors">
+                    {featuredProject.title}
+                  </h3>
+                </div>
+
+                <p className="text-neutral-300 font-sans font-light text-sm sm:text-base leading-relaxed">
+                  {featuredProject.description}
+                </p>
+
+                {/* Tech Chips */}
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {featuredProject.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-neutral-300 font-mono text-xs group-hover:border-white/15 transition-colors"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Action CTAs */}
+                <div className="flex items-center gap-4 pt-3">
+                  <a
+                    href={featuredProject.demoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-semibold text-xs font-mono hover:bg-neutral-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                  >
+                    <span>Live Demo</span>
+                    <ArrowUpRight size={14} />
+                  </a>
+
+                  <a
+                    href={featuredProject.codeLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.04] border border-white/10 hover:border-white/25 text-white font-mono text-xs transition-all"
+                  >
+                    <Github size={14} />
+                    <span>Source Code</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Right Column: High-tech Visual Workspace Representation */}
+              <div className="lg:col-span-5 w-full">
+                <div className="relative rounded-2xl bg-[#0d0e18] border border-white/[0.08] p-5 shadow-inner overflow-hidden font-mono text-xs text-left">
+                  {/* Window Bar */}
+                  <div className="flex items-center justify-between pb-3 mb-4 border-b border-white/[0.06] text-neutral-400">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+                    </div>
+                    <span className="text-[11px] text-neutral-400">devsync.workspace.ts</span>
+                    <span className="text-emerald-400 text-[10px]">RTC_CONNECTED</span>
+                  </div>
+
+                  {/* Code Mockup Snippet */}
+                  <div className="space-y-1.5 text-[11px] text-neutral-300 leading-relaxed overflow-x-auto">
+                    <div>
+                      <span className="text-indigo-400">import</span> &#123; WebRTC, Socket &#125;{" "}
+                      <span className="text-indigo-400">from</span>{" "}
+                      <span className="text-emerald-300">"devsync/core"</span>;
+                    </div>
+                    <div className="text-neutral-500">// Initialize multi-peer workspace</div>
+                    <div>
+                      <span className="text-indigo-400">const</span> workspace ={" "}
+                      <span className="text-cyan-300">new</span> CollaborativeRoom(&#123;
+                    </div>
+                    <div className="pl-4">
+                      roomId: <span className="text-amber-300">"global-cluster"</span>,
+                    </div>
+                    <div className="pl-4">
+                      encryption: <span className="text-amber-300">"AES-GCM"</span>,
+                    </div>
+                    <div className="pl-4">
+                      webrtc: <span className="text-emerald-400">true</span>
+                    </div>
+                    <div>&#125;);</div>
+                    <div className="pt-2 text-neutral-400 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-indigo-400 animate-ping" />
+                      <span className="text-indigo-300 text-[10px]">Real-time synchronized across peers</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </motion.div>
+        </div>
+
+        {/* ASYMMETRIC BENTO GRID FOR SECONDARY PROJECTS */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+          {secondaryProjects.map((project, idx) => (
             <motion.div
-              key={idx}
+              key={project.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className={`rounded-3xl bg-[#090a12]/80 border border-white/[0.08] hover:border-white/20 p-6 sm:p-8 flex flex-col justify-between group transition-all duration-300 shadow-[0_15px_40px_rgba(0,0,0,0.5)] ${
+                idx === 0 ? "md:col-span-7" : "md:col-span-5"
+              }`}
             >
-              <ProjectCard project={project} />
+              <div className="space-y-4 text-left">
+                {/* Header Row */}
+                <div className="flex items-center justify-between">
+                  <span className="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 font-mono text-[11px] text-neutral-300">
+                    {project.category}
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={project.codeLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-8 h-8 rounded-full bg-white/[0.04] hover:bg-white/[0.1] border border-white/10 flex items-center justify-center text-neutral-300 hover:text-white transition-colors"
+                      aria-label="GitHub Repository"
+                    >
+                      <Github size={14} />
+                    </a>
+                    <a
+                      href={project.demoLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-8 h-8 rounded-full bg-white/[0.04] hover:bg-white/[0.1] border border-white/10 flex items-center justify-center text-neutral-300 hover:text-white transition-colors"
+                      aria-label="Live Demo"
+                    >
+                      <ArrowUpRight size={14} />
+                    </a>
+                  </div>
+                </div>
+
+                <h4 className="text-2xl font-display font-bold text-white group-hover:text-indigo-300 transition-colors">
+                  {project.title}
+                </h4>
+
+                <p className="text-sm font-sans font-light text-neutral-300 leading-relaxed">
+                  {project.description}
+                </p>
+
+                {/* Optional Mobile Image Asset Preview for Game On */}
+                {project.image && (
+                  <div className="pt-2 rounded-2xl overflow-hidden max-h-[160px] border border-white/[0.06] bg-black/40 flex items-center justify-center">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Tags & Action Footer */}
+              <div className="pt-6 mt-6 border-t border-white/[0.06] flex flex-wrap gap-1.5 text-left">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-white/[0.02] border border-white/[0.06] text-neutral-400"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>
+
       </div>
     </section>
-  );
-}
-
-// Dummy standard modules to fit icon dependencies
-function Code2(props) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
   );
 }

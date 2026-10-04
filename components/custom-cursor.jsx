@@ -7,96 +7,94 @@ export default function CustomCursor() {
   const [mounted, setMounted] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [enabled, setEnabled] = useState(false);
 
-  // Mouse positions
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const mouseX = useMotionValue(-100);
+  const mouseY = useMotionValue(-100);
 
-  // Spring physics for trailing effect
-  const springConfig = { damping: 30, stiffness: 200, mass: 0.5 };
-  const trailX = useSpring(mouseX, springConfig);
-  const trailY = useSpring(mouseY, springConfig);
+  // Smooth trailing spring physics for outer ring
+  const ringX = useSpring(mouseX, { damping: 28, stiffness: 220, mass: 0.4 });
+  const ringY = useSpring(mouseY, { damping: 28, stiffness: 220, mass: 0.4 });
 
   useEffect(() => {
     setMounted(true);
 
-    const moveCursor = (e) => {
+    // Strict device and accessibility checks
+    const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!hasFinePointer || prefersReducedMotion) {
+      setEnabled(false);
+      return;
+    }
+
+    setEnabled(true);
+
+    const onMouseMove = (e) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
       if (!isVisible) setIsVisible(true);
     };
 
-    const handleMouseLeave = () => {
-      setIsVisible(false);
+    const onMouseEnter = () => setIsVisible(true);
+    const onMouseLeave = () => setIsVisible(false);
+
+    // Interactive target detection
+    const handleMouseOver = (e) => {
+      const target = e.target;
+      if (
+        target.closest("a, button, input, textarea, [role='button'], .clickable, .cursor-pointer")
+      ) {
+        setIsHovering(true);
+      } else {
+        setIsHovering(false);
+      }
     };
 
-    const handleMouseEnter = () => {
-      setIsVisible(true);
-    };
-
-    // Detect clickable elements for hover scaling
-    const addHoverListeners = () => {
-      const interactives = document.querySelectorAll(
-        "a, button, input, textarea, [role='button'], .clickable"
-      );
-      interactives.forEach((el) => {
-        el.addEventListener("mouseenter", () => setIsHovering(true));
-        el.addEventListener("mouseleave", () => setIsHovering(false));
-      });
-    };
-
-    window.addEventListener("mousemove", moveCursor);
-    document.addEventListener("mouseleave", handleMouseLeave);
-    document.addEventListener("mouseenter", handleMouseEnter);
-
-    // Initial check & observer to bind hover state to dynamically rendered elements
-    addHoverListeners();
-    const observer = new MutationObserver(addHoverListeners);
-    observer.observe(document.body, { childList: true, subtree: true });
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    document.addEventListener("mouseenter", onMouseEnter);
+    document.addEventListener("mouseleave", onMouseLeave);
+    document.addEventListener("mouseover", handleMouseOver, { passive: true });
 
     return () => {
-      window.removeEventListener("mousemove", moveCursor);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-      document.removeEventListener("mouseenter", handleMouseEnter);
-      observer.disconnect();
+      window.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseenter", onMouseEnter);
+      document.removeEventListener("mouseleave", onMouseLeave);
+      document.removeEventListener("mouseover", handleMouseOver);
     };
   }, [mouseX, mouseY, isVisible]);
 
-  // Disable custom cursor on touch devices
-  if (!mounted) return null;
+  if (!mounted || !enabled || !isVisible) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[9999] hidden md:block">
-      {/* Outer Glowing Trail Aura */}
-      {isVisible && (
-        <motion.div
-          className="absolute rounded-full bg-gradient-to-r from-cyan-500/30 via-indigo-500/25 to-pink-500/30 blur-2xl"
-          style={{
-            x: trailX,
-            y: trailY,
-            translateX: "-50%",
-            translateY: "-50%",
-            width: isHovering ? "180px" : "120px",
-            height: isHovering ? "180px" : "120px",
-          }}
-          transition={{ type: "spring", stiffness: 150, damping: 25 }}
-        />
-      )}
+    <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden">
+      {/* Outer Subtle Trailing Ring */}
+      <motion.div
+        className="absolute rounded-full border border-indigo-400/50 bg-indigo-500/[0.04] backdrop-blur-[1px]"
+        style={{
+          x: ringX,
+          y: ringY,
+          translateX: "-50%",
+          translateY: "-50%",
+          width: isHovering ? 48 : 28,
+          height: isHovering ? 48 : 28,
+        }}
+        transition={{ type: "spring", stiffness: 350, damping: 25 }}
+      />
 
-      {/* Inner precise dot pointer */}
-      {isVisible && (
-        <motion.div
-          className="absolute h-3 w-3 rounded-full bg-black dark:bg-white mix-blend-difference"
-          style={{
-            x: mouseX,
-            y: mouseY,
-            translateX: "-50%",
-            translateY: "-50%",
-            scale: isHovering ? 2.5 : 1,
-          }}
-          transition={{ type: "spring", stiffness: 350, damping: 25, mass: 0.1 }}
-        />
-      )}
+      {/* Inner Precision Dot Pointer */}
+      <motion.div
+        className="absolute rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+        style={{
+          x: mouseX,
+          y: mouseY,
+          translateX: "-50%",
+          translateY: "-50%",
+          width: isHovering ? 6 : 4,
+          height: isHovering ? 6 : 4,
+        }}
+        transition={{ type: "spring", stiffness: 450, damping: 30 }}
+      />
     </div>
   );
 }

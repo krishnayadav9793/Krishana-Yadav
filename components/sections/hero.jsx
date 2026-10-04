@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { motion, useMotionValue, useTransform, useSpring } from "motion/react";
-import { Download, Terminal, Award, Code2, Cpu } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { motion } from "motion/react";
+import { Download, Terminal, Code2, Trophy, ArrowRight, Sparkles, Cpu, Layers } from "lucide-react";
+import ThreeScene from "@/components/three-scene";
+import MagneticButton from "@/components/ui/magnetic-button";
 
 const typewriterWords = [
   "Competitive Programming (CP)",
@@ -15,17 +17,14 @@ export default function HeroSection() {
   const [wordIdx, setWordIdx] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
-  const cardRef = useRef(null);
 
-  // Typewriter effect loop
   useEffect(() => {
     let timer;
     const currentWord = typewriterWords[wordIdx];
-    const typingSpeed = isDeleting ? 30 : 80;
+    const typingSpeed = isDeleting ? 30 : 75;
 
     if (!isDeleting && displayText === currentWord) {
-      // Pause when full word is typed
-      timer = setTimeout(() => setIsDeleting(true), 1500);
+      timer = setTimeout(() => setIsDeleting(true), 1600);
     } else if (isDeleting && displayText === "") {
       setIsDeleting(false);
       setWordIdx((prev) => (prev + 1) % typewriterWords.length);
@@ -42,205 +41,189 @@ export default function HeroSection() {
     return () => clearTimeout(timer);
   }, [displayText, isDeleting, wordIdx]);
 
-  // Framer Motion 3D tilt tracking
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  
-  const springConfig = { damping: 25, stiffness: 150, mass: 0.5 };
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [15, -15]), springConfig);
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-15, 15]), springConfig);
-
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left - width / 2;
-    const mouseY = e.clientY - rect.top - height / 2;
-    x.set(mouseX / width);
-    y.set(mouseY / height);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden bg-background"
+      className="relative min-h-[95vh] flex items-center justify-center pt-28 pb-16 md:py-32 overflow-hidden bg-[#050507]"
     >
-      {/* Dynamic Grid Background with Glow */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(99,102,241,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(99,102,241,0.04)_1px,transparent_1px)] bg-[size:4rem_4rem] dark:bg-[linear-gradient(to_right,rgba(99,102,241,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(99,102,241,0.06)_1px,transparent_1px)]" />
-      <div className="absolute top-[20%] left-[10%] w-[30vw] h-[30vw] bg-indigo-500/10 dark:bg-indigo-500/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[20%] right-[10%] w-[35vw] h-[35vw] bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-[140px] pointer-events-none" />
+      {/* Subtle Technical Mesh Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10 w-full">
-        {/* Left Side: Title and Subtitles */}
-        <div className="lg:col-span-7 flex flex-col items-start text-left space-y-6 md:space-y-8">
+      {/* Atmospheric Radial Gradients */}
+      <div className="absolute top-1/4 left-1/12 w-[45vw] h-[45vw] max-w-[600px] max-h-[600px] bg-indigo-600/[0.07] rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/12 w-[40vw] h-[40vw] max-w-[550px] max-h-[550px] bg-cyan-500/[0.06] rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        {/* Left Column: Semantic Content & Typography Hierarchy */}
+        <div className="lg:col-span-7 flex flex-col items-start text-left space-y-7">
+          
+          {/* Eyebrow Status Badge */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 font-mono text-xs md:text-sm tracking-wider uppercase"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md shadow-sm text-neutral-300 font-mono text-xs tracking-wider"
           >
-            <Terminal size={14} className="animate-pulse" />
-            <span>Welcome to my universe</span>
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            <span className="text-neutral-400">SYS_CONFIG:</span>
+            <span className="text-white font-medium">ACTIVE</span>
+            <span className="text-neutral-600">|</span>
+            <span className="text-neutral-400 hidden sm:inline">IIITV (CSE)</span>
           </motion.div>
 
-          {/* Typewriter Area */}
-          <div className="min-h-[50px] md:min-h-[60px] flex items-center">
-            <motion.p
+          {/* Main Hero Statement */}
+          <div className="space-y-3">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-display font-extrabold tracking-tight text-white leading-[1.08]"
+            >
+              Architecting{" "}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-indigo-200 to-indigo-400">
+                robust systems
+              </span>{" "}
+              & optimized algorithms.
+            </motion.h1>
+
+            {/* Dynamic Typewriter Terminal Line */}
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="text-lg md:text-2xl font-mono text-muted-foreground tracking-tight"
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="min-h-[44px] flex items-center pt-1"
             >
-              I build solutions in{" "}
-              <span className="text-foreground font-semibold border-r-2 border-indigo-500 dark:border-indigo-400 pr-1.5 py-0.5 animate-pulse text-indigo-500 dark:text-indigo-400">
-                {displayText}
-              </span>
-            </motion.p>
-          </div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="text-base md:text-lg text-muted-foreground max-w-xl font-sans font-light leading-relaxed"
-          >
-            Hi, I’m <strong className="text-foreground font-medium">Krishana Yadav</strong>.
-            A passionate developer and problem solver specializing in writing optimized code, solving complex algorithms, and building beautiful, accessible digital products.
-          </motion.p>
-
-          {/* Action Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="flex flex-wrap gap-4 items-center"
-          >
-            {/* Download Resume */}
-            <a
-              href="https://drive.google.com/uc?export=download&id=1FvG5hXUJ7tPJ8Qm3e5l1B5jtrIFDEPIr"
-              download
-              target="_blank"
-              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-700 text-white font-medium shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 hover:scale-[1.03] transition-all duration-300 group"
-            >
-              <Download size={18} className="group-hover:translate-y-0.5 transition-transform" />
-              Download Resume
-            </a>
-            
-            {/* View Work Anchor Button */}
-            <a
-              href="#work"
-              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full border border-border bg-card/60 backdrop-blur-md text-foreground font-medium hover:bg-muted hover:scale-[1.03] transition-all duration-300"
-            >
-              View Projects
-            </a>
-          </motion.div>
-
-          {/* Floating Achievements / Tech Focus Icons */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="flex items-center gap-8 pt-4 md:pt-8"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-indigo-500">
-                <Code2 size={20} />
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground font-mono">CP / DSA</p>
-                <p className="text-sm font-semibold">1500+ Solved</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-cyan-500">
-                <Award size={20} />
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground font-mono">CODEFORCES</p>
-                <p className="text-sm font-semibold">Pupil Rated</p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Right Side: Interactive 3D Card / Name Graphics */}
-        <div className="lg:col-span-5 flex justify-center items-center">
-          <div
-            className="perspective-1000 w-full max-w-[420px] aspect-[4/5] flex items-center justify-center cursor-grab active:cursor-grabbing"
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-          >
-            <motion.div
-              ref={cardRef}
-              style={{ rotateX, rotateY }}
-              className="preserve-3d relative w-full h-full rounded-3xl bg-neutral-100/40 dark:bg-neutral-900/40 backdrop-blur-md border border-neutral-200/50 dark:border-neutral-800/40 p-8 shadow-2xl flex flex-col justify-between overflow-hidden"
-            >
-              {/* Inner glowing light bubble tracking mouse */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_var(--glow-x,50%)_var(--glow-y,50%),rgba(99,102,241,0.15),transparent_60%)] pointer-events-none" />
-
-              {/* Card Header details */}
-              <div className="preserve-3d flex items-center justify-between">
-                <span className="font-mono text-xs text-indigo-500 dark:text-indigo-400 tracking-widest font-semibold">
-                  SYS_CONFIG: ACTIVE
+              <div className="flex items-center gap-2 font-mono text-sm sm:text-base md:text-lg text-neutral-400">
+                <span className="text-indigo-400 font-semibold select-none">❯</span>
+                <span>I build solutions in</span>
+                <span className="text-indigo-300 font-semibold border-r-2 border-indigo-400 pr-1 animate-pulse">
+                  {displayText}
                 </span>
-                <Cpu size={18} className="text-neutral-400 dark:text-neutral-500 animate-spin-slow" />
-              </div>
-
-              {/* 3D TEXT NAME GROUP */}
-              <div className="preserve-3d flex flex-col items-start gap-1 py-12">
-                {/* 3D parallax layered name */}
-                <div className="relative font-display font-extrabold tracking-tighter text-6xl md:text-7xl preserve-3d">
-                  {/* Backdrop glowing shadow */}
-                  <span className="absolute left-1 top-1 text-indigo-500/10 dark:text-indigo-500/20 translate-z-[-20px] select-none">
-                    KRISHANA
-                  </span>
-                  {/* Foreground Layer */}
-                  <span className="block text-foreground translate-z-[20px] bg-clip-text text-transparent bg-gradient-to-br from-foreground via-foreground/90 to-neutral-400">
-                    KRISHANA
-                  </span>
-                </div>
-
-                <div className="relative font-display font-extrabold tracking-tighter text-6xl md:text-7xl preserve-3d">
-                  {/* Backdrop glowing shadow */}
-                  <span className="absolute left-1 top-1 text-cyan-500/10 dark:text-cyan-500/20 translate-z-[-20px] select-none">
-                    YADAV
-                  </span>
-                  {/* Foreground Layer */}
-                  <span className="block text-indigo-500 dark:text-indigo-400 translate-z-[40px] bg-gradient-to-r from-indigo-500 to-cyan-500 bg-clip-text text-transparent">
-                    YADAV
-                  </span>
-                </div>
-              </div>
-
-              {/* Card Footer details */}
-              <div className="preserve-3d flex items-end justify-between border-t border-border/40 pt-6">
-                <div>
-                  <p className="font-mono text-[10px] text-muted-foreground tracking-widest uppercase">
-                    Developer Node
-                  </p>
-                  <p className="font-sans font-semibold text-sm text-foreground">
-                    krishna_yadav_
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="font-mono text-[10px] text-muted-foreground tracking-widest uppercase">
-                    Location
-                  </p>
-                  <p className="font-sans font-semibold text-sm text-foreground">
-                    India
-                  </p>
-                </div>
               </div>
             </motion.div>
           </div>
+
+          {/* Supporting Bio Text (EXACT EXISTING CONTENT PRESERVED) */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-base sm:text-lg text-neutral-300 font-sans font-light leading-relaxed max-w-2xl"
+          >
+            Hi, I’m <strong className="text-white font-semibold">Krishana Yadav</strong>.
+            A passionate developer and problem solver specializing in writing optimized code, solving complex algorithms, and building beautiful, accessible digital products.
+          </motion.p>
+
+          {/* CTAs with Magnetic micro-interaction */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex flex-wrap items-center gap-4 pt-2"
+          >
+            <MagneticButton
+              as="a"
+              href="https://drive.google.com/uc?export=download&id=1FvG5hXUJ7tPJ8Qm3e5l1B5jtrIFDEPIr"
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-7 py-3.5 rounded-full bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-700 text-white font-medium text-sm shadow-[0_0_25px_rgba(99,102,241,0.35)] hover:shadow-[0_0_35px_rgba(99,102,241,0.5)] border border-indigo-400/30 group"
+            >
+              <Download size={16} className="mr-2 group-hover:-translate-y-0.5 transition-transform" />
+              <span>Download Resume</span>
+            </MagneticButton>
+
+            <MagneticButton
+              as="a"
+              href="#work"
+              className="px-7 py-3.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/10 hover:border-white/25 text-sm font-medium transition-all group"
+            >
+              <span>View Projects</span>
+              <ArrowRight size={15} className="ml-2 group-hover:translate-x-1 transition-transform text-neutral-400 group-hover:text-white" />
+            </MagneticButton>
+          </motion.div>
+
+          {/* Preserved Achievement Metrics Bento Strip */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-4 w-full max-w-xl"
+          >
+            <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.07] backdrop-blur-md">
+              <div className="flex items-center gap-2 mb-1">
+                <Code2 size={15} className="text-indigo-400" />
+                <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-wider">CP / DSA</span>
+              </div>
+              <p className="text-base sm:text-lg font-bold font-display text-white">1500+ Solved</p>
+            </div>
+
+            <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.07] backdrop-blur-md">
+              <div className="flex items-center gap-2 mb-1">
+                <Trophy size={15} className="text-cyan-400" />
+                <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-wider">CODEFORCES</span>
+              </div>
+              <p className="text-base sm:text-lg font-bold font-display text-white">Pupil Rated</p>
+            </div>
+
+            <div className="col-span-2 sm:col-span-1 p-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.07] backdrop-blur-md">
+              <div className="flex items-center gap-2 mb-1">
+                <Cpu size={15} className="text-indigo-400" />
+                <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-wider">NODE // LOC</span>
+              </div>
+              <p className="text-sm font-semibold font-mono text-white truncate">_krishna__yadav_</p>
+            </div>
+          </motion.div>
+
         </div>
+
+        {/* Right Column: Three.js Interactive Visual Centerpiece */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="lg:col-span-5 flex justify-center items-center w-full"
+        >
+          <div className="relative w-full max-w-[500px] rounded-3xl bg-[#090a12]/80 border border-white/[0.08] p-3 sm:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-xl overflow-hidden group">
+            
+            {/* Top Frame Status Bar */}
+            <div className="flex items-center justify-between px-3 py-2 border-b border-white/[0.06] mb-2 font-mono text-[11px] text-neutral-400">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500/70 inline-block" />
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-500/70 inline-block" />
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70 inline-block" />
+                <span className="ml-2 text-neutral-300 font-semibold tracking-wide">SYSTEM_NETWORK.3D</span>
+              </div>
+              <span className="text-indigo-400 text-[10px]">WebGL 2.0</span>
+            </div>
+
+            {/* Interactive Three.js Scene */}
+            <ThreeScene />
+
+            {/* Bottom System Identity Strip */}
+            <div className="flex items-center justify-between px-3 py-2.5 mt-2 border-t border-white/[0.06] font-mono text-[10px] text-neutral-400">
+              <div className="flex items-center gap-1.5">
+                <span className="text-neutral-500">ID:</span>
+                <span className="text-white font-medium">KRISHANA YADAV</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-neutral-500">STATUS:</span>
+                <span className="text-emerald-400 font-medium">READY</span>
+              </div>
+            </div>
+
+            {/* Corner Decorative Crosshairs */}
+            <div className="absolute top-2 left-2 text-neutral-700 text-[10px] font-mono select-none">+</div>
+            <div className="absolute top-2 right-2 text-neutral-700 text-[10px] font-mono select-none">+</div>
+            <div className="absolute bottom-2 left-2 text-neutral-700 text-[10px] font-mono select-none">+</div>
+            <div className="absolute bottom-2 right-2 text-neutral-700 text-[10px] font-mono select-none">+</div>
+          </div>
+        </motion.div>
+
       </div>
     </section>
   );

@@ -35,8 +35,9 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --font-sans: var(--font-outfit), sans-serif;
-  --font-display: var(--font-space-grotesk), sans-serif;
+  --font-sans: var(--font-outfit), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-mono), "JetBrains Mono", monospace;
+  --font-display: var(--font-space-grotesk), var(--font-outfit), sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -48,108 +49,119 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.99 0.005 240);
-  --foreground: oklch(0.15 0.02 240);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0.02 240);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0.02 240);
-  --primary: oklch(0.3 0.1 260);
-  --primary-foreground: oklch(0.98 0.01 240);
-  --secondary: oklch(0.95 0.01 240);
-  --secondary-foreground: oklch(0.3 0.1 260);
-  --muted: oklch(0.95 0.01 240);
-  --muted-foreground: oklch(0.5 0.02 240);
-  --accent: oklch(0.95 0.01 240);
-  --accent-foreground: oklch(0.3 0.1 260);
-  --destructive: oklch(0.6 0.18 20);
-  --border: oklch(0.9 0.01 240);
-  --input: oklch(0.9 0.01 240);
-  --ring: oklch(0.6 0.1 260);
+  --background: #050507;
+  --foreground: #f4f4f5;
+  --card: #090a12;
+  --card-foreground: #f4f4f5;
+  --popover: #090a12;
+  --popover-foreground: #f4f4f5;
+  --primary: #6366f1;
+  --primary-foreground: #ffffff;
+  --secondary: #12131d;
+  --secondary-foreground: #f4f4f5;
+  --muted: #181926;
+  --muted-foreground: #94a3b8;
+  --accent: #12131d;
+  --accent-foreground: #f4f4f5;
+  --destructive: #ef4444;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.08);
+  --ring: #6366f1;
   
-  /* Coding stats gauge colors */
   --leetcode-color: #ffa116;
   --codeforces-color: #3182ce;
 }
 
 .dark {
-  --background: oklch(0.08 0.01 240);
-  --foreground: oklch(0.98 0.01 240);
-  --card: oklch(0.11 0.015 240);
-  --card-foreground: oklch(0.98 0.01 240);
-  --popover: oklch(0.11 0.015 240);
-  --popover-foreground: oklch(0.98 0.01 240);
-  --primary: oklch(0.75 0.12 250);
-  --primary-foreground: oklch(0.08 0.01 240);
-  --secondary: oklch(0.16 0.02 240);
-  --secondary-foreground: oklch(0.98 0.01 240);
-  --muted: oklch(0.16 0.02 240);
-  --muted-foreground: oklch(0.7 0.02 240);
-  --accent: oklch(0.16 0.02 240);
-  --accent-foreground: oklch(0.98 0.01 240);
-  --destructive: oklch(0.6 0.18 20);
-  --border: oklch(0.18 0.02 240);
-  --input: oklch(0.18 0.02 240);
-  --ring: oklch(0.75 0.12 250);
+  --background: #050507;
+  --foreground: #f4f4f5;
+  --card: #090a12;
+  --card-foreground: #f4f4f5;
+  --popover: #090a12;
+  --popover-foreground: #f4f4f5;
+  --primary: #6366f1;
+  --primary-foreground: #ffffff;
+  --secondary: #12131d;
+  --secondary-foreground: #f4f4f5;
+  --muted: #181926;
+  --muted-foreground: #94a3b8;
+  --accent: #12131d;
+  --accent-foreground: #f4f4f5;
+  --destructive: #ef4444;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.08);
+  --ring: #6366f1;
+}
+
+.light {
+  --background: #f8fafc;
+  --foreground: #09090b;
+  --card: #ffffff;
+  --card-foreground: #09090b;
+  --popover: #ffffff;
+  --popover-foreground: #09090b;
+  --primary: #4f46e5;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #09090b;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #f1f5f9;
+  --accent-foreground: #09090b;
+  --destructive: #dc2626;
+  --border: rgba(0, 0, 0, 0.08);
+  --input: rgba(0, 0, 0, 0.08);
+  --ring: #4f46e5;
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/30;
+    border-color: var(--border);
     box-sizing: border-box;
   }
   
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    background-color: var(--background);
+    color: var(--foreground);
   }
 
   body {
-    @apply bg-background text-foreground transition-colors duration-300;
+    background-color: var(--background);
+    color: var(--foreground);
+    transition: background-color 0.3s ease, color 0.3s ease;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
-  /* Custom elegant scrollbar */
+  /* Sleek Minimalist Webkit Scrollbar */
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
   }
   
   ::-webkit-scrollbar-track {
-    background: var(--background);
+    background: #050507;
   }
   
   ::-webkit-scrollbar-thumb {
-    background: oklch(0.4 0.05 240 / 30%);
-    border-radius: 5px;
-    border: 2px solid var(--background);
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    border: 2px solid #050507;
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    background: oklch(0.4 0.05 240 / 60%);
+    background: rgba(255, 255, 255, 0.3);
   }
 
   /* Custom Selection */
   ::selection {
-    background-color: oklch(0.75 0.12 250 / 30%);
-    color: inherit;
+    background-color: rgba(99, 102, 241, 0.35);
+    color: #ffffff;
   }
 }
 
-/* 3D Parallax Typography effect utilities */
-.perspective-1000 {
-  perspective: 1000px;
-}
-
-.preserve-3d {
-  transform-style: preserve-3d;
-}
-
-.backface-hidden {
-  backface-visibility: hidden;
-}
-
-/* Custom horizontal scrollbar hiding for portfolio timelines */
+/* Custom horizontal scrollbar hiding */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -158,7 +170,7 @@
   scrollbar-width: none;
 }
 
-/* Glow spotlight utilities */
+/* Radial Glow Spotlight Utility */
 .glow-spotlight {
   position: relative;
 }
@@ -166,9 +178,13 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--glow-color, rgba(255,255,255,0.15)) 0%, transparent 60%);
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    var(--glow-color, rgba(99, 102, 241, 0.08)) 0%,
+    transparent 65%
+  );
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s ease;
   pointer-events: none;
   z-index: 1;
 }
