@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
   --color-background: var(--background);
@@ -94,24 +94,24 @@
 }
 
 .light {
-  --background: #f8fafc;
-  --foreground: #09090b;
-  --card: #ffffff;
-  --card-foreground: #09090b;
-  --popover: #ffffff;
-  --popover-foreground: #09090b;
-  --primary: #4f46e5;
-  --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #09090b;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --accent: #f1f5f9;
-  --accent-foreground: #09090b;
-  --destructive: #dc2626;
-  --border: rgba(0, 0, 0, 0.08);
-  --input: rgba(0, 0, 0, 0.08);
-  --ring: #4f46e5;
+  --background: #F8F9FB;
+  --foreground: #0F172A;
+  --card: #FFFFFF;
+  --card-foreground: #0F172A;
+  --popover: #FFFFFF;
+  --popover-foreground: #0F172A;
+  --primary: #4F46E5;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F1F3F5;
+  --secondary-foreground: #0F172A;
+  --muted: #F1F3F5;
+  --muted-foreground: #64748B;
+  --accent: #EEF2FF;
+  --accent-foreground: #4338CA;
+  --destructive: #DC2626;
+  --border: rgba(15, 23, 42, 0.07);
+  --input: rgba(15, 23, 42, 0.08);
+  --ring: #4F46E5;
 }
 
 @layer base {
@@ -125,6 +125,7 @@
     overflow-x: hidden;
     background-color: var(--background);
     color: var(--foreground);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   body {
@@ -141,13 +142,13 @@
   }
   
   ::-webkit-scrollbar-track {
-    background: #050507;
+    background: var(--background);
   }
   
   ::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.15);
     border-radius: 4px;
-    border: 2px solid #050507;
+    border: 2px solid var(--background);
   }
   
   ::-webkit-scrollbar-thumb:hover {
@@ -159,6 +160,324 @@
     background-color: rgba(99, 102, 241, 0.35);
     color: #ffffff;
   }
+}
+
+/* ==========================================================================
+   PREMIUM LIGHT MODE DESIGN SYSTEM
+   Warm/Off-White Canvas + Layered Surfaces + Subtle Tints + Luxury Shadows
+   ========================================================================== */
+
+.light {
+  color-scheme: light;
+}
+
+.light html,
+.light body {
+  background-color: #F8F9FB !important;
+  color: #0F172A !important;
+}
+
+/* 1. Canvas & Section Surface Hierarchy */
+.light main {
+  background-color: #F8F9FB !important;
+}
+
+/* Hero Section: Warm off-white with delicate ambient lighting */
+.light #home {
+  background-color: #F8F9FB !important;
+}
+
+/* Projects Section: Subtle soft blue/indigo tinted surface */
+.light #work {
+  background-color: #F4F6FD !important;
+  border-top: 1px solid rgba(15, 23, 42, 0.05) !important;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.05) !important;
+}
+
+/* Telemetry Section: Neutral off-white canvas */
+.light #github {
+  background-color: #F8F9FB !important;
+}
+
+/* About Section: Clean, soft neutral white */
+.light #about {
+  background-color: #FFFFFF !important;
+  border-top: 1px solid rgba(15, 23, 42, 0.05) !important;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.05) !important;
+}
+
+/* Skills Section: Crisp off-white bento field */
+.light #skills {
+  background-color: #F8F9FB !important;
+}
+
+/* Education Timeline: Pure white clean foundation */
+.light #education {
+  background-color: #FFFFFF !important;
+  border-top: 1px solid rgba(15, 23, 42, 0.05) !important;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.05) !important;
+}
+
+/* Contact Section: Grounded refined slate tint */
+.light #contact {
+  background-color: #EEF2F6 !important;
+}
+
+/* Footer: Anchoring soft slate boundary */
+.light footer,
+.light .bg-\[\#040406\] {
+  background-color: #E6EBF2 !important;
+  border-top: 1px solid rgba(15, 23, 42, 0.08) !important;
+}
+
+/* 2. Bento Cards & Surface Layers (Never Flat!) */
+.light .bg-\[\#090a12\]\/80,
+.light .bg-\[\#090a12\]\/90,
+.light .bg-\[\#0a0b12\]\/80,
+.light .bg-\[\#090a12\] {
+  background-color: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.07) !important;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease !important;
+}
+
+.light .bg-\[\#090a12\]\/80:hover,
+.light .bg-\[\#090a12\]\/90:hover,
+.light .bg-\[\#0a0b12\]\/80:hover,
+.light .bg-\[\#090a12\]:hover {
+  transform: translateY(-2px);
+  border-color: rgba(15, 23, 42, 0.14) !important;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.03) !important;
+}
+
+/* Elevated Project & Profile Hero Containers */
+.light #home .bg-\[\#090a12\]\/80 {
+  background-color: #FFFFFF !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 20px 48px -4px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.02) !important;
+}
+
+/* 3. Secondary Surfaces: Subcards, Tech Chips, Stats & Inner Panels */
+.light .bg-\[\#0d0e18\],
+.light .bg-\[\#0c0d18\] {
+  background-color: #0F172A !important; /* Keep technical code mockups in sleek dark syntax for supreme contrast */
+  border-color: rgba(15, 23, 42, 0.2) !important;
+  color: #F8FAFC !important;
+}
+
+.light .bg-\[\#08080d\]\/95 {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+.light .bg-white\/\[0\.02\],
+.light .bg-white\/\[0\.03\],
+.light .bg-white\/\[0\.04\],
+.light .bg-white\/\[0\.05\],
+.light .bg-white\/\[0\.08\],
+.light .bg-white\/5,
+.light .bg-white\/10,
+.light .bg-white\/15 {
+  background-color: #F1F3F5 !important;
+  border: 1px solid rgba(15, 23, 42, 0.06) !important;
+}
+
+/* Interactive chip hover states */
+.light .group\/chip:hover,
+.light span.bg-white\/\[0\.02\]:hover {
+  background-color: #EEF2FF !important;
+  border-color: rgba(99, 102, 241, 0.35) !important;
+  color: #4338CA !important;
+}
+
+/* 4. Fine Border System */
+.light .border-white\/\[0\.04\],
+.light .border-white\/\[0\.06\],
+.light .border-white\/\[0\.07\],
+.light .border-white\/\[0\.08\],
+.light .border-white\/10,
+.light .border-white\/15,
+.light .border-white\/20,
+.light .border-white\/25 {
+  border-color: rgba(15, 23, 42, 0.07) !important;
+}
+
+/* 5. Strong Typography Hierarchy & Depth */
+.light h1,
+.light h2,
+.light h3,
+.light h4,
+.light h5,
+.light h6 {
+  color: #0F172A !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+}
+
+.light p,
+.light span.font-sans {
+  color: #334155;
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+.light strong,
+.light strong.text-white {
+  color: #0F172A !important;
+  font-weight: 600 !important;
+}
+
+.light .text-neutral-200 {
+  color: #1E293B !important;
+}
+
+.light .text-neutral-300 {
+  color: #334155 !important;
+}
+
+.light .text-neutral-400 {
+  color: #64748B !important;
+}
+
+.light .text-neutral-500 {
+  color: #94A3B8 !important;
+}
+
+/* Selectively retain white text on saturated accent containers & buttons */
+.light .text-white:not(button):not(a.bg-gradient-to-r):not(a.bg-white):not(.bg-indigo-600 *):not(.bg-indigo-500 *):not(.bg-emerald-500 *):not([class*="from-indigo-"]):not([class*="via-indigo-"]):not([class*="to-indigo-"]):not(.bg-\[\#0d0e18\] *):not(.bg-\[\#0c0d18\] *) {
+  color: #0F172A !important;
+}
+
+/* Editorial Heading Gradients */
+.light .bg-gradient-to-r.from-white.via-indigo-200.to-indigo-400 {
+  background-image: linear-gradient(135deg, #0F172A 15%, #312E81 65%, #4F46E5 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+.light .bg-gradient-to-r.from-white.via-neutral-100.to-neutral-400 {
+  background-image: linear-gradient(135deg, #0F172A 0%, #1E293B 55%, #475569 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+/* 6. Buttons in Light Mode: Distinct Visual Hierarchy */
+/* Primary CTA button (e.g. Download Resume in Hero) */
+.light #home a[download] {
+  background-image: none !important;
+  background-color: #0F172A !important;
+  color: #FFFFFF !important;
+  border: 1px solid #1E293B !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.16) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.light #home a[download]:hover {
+  background-color: #1E293B !important;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.24) !important;
+  transform: translateY(-1px);
+}
+
+/* Secondary CTA button (e.g. View Projects in Hero) */
+.light #home a[href="#work"] {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid rgba(15, 23, 42, 0.14) !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+}
+
+.light #home a[href="#work"]:hover {
+  border-color: rgba(15, 23, 42, 0.25) !important;
+  background-color: #F8F9FA !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08) !important;
+  transform: translateY(-1px);
+}
+
+/* 7. Form Inputs & Textareas */
+.light input,
+.light textarea {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+  border-radius: 0.75rem !important;
+  transition: all 0.2s ease !important;
+}
+
+.light input::placeholder,
+.light textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+.light input:focus,
+.light textarea:focus {
+  background-color: #FFFFFF !important;
+  border-color: #4F46E5 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+  outline: none !important;
+}
+
+/* 8. Navbar in Light Mode */
+.light header {
+  transition: all 0.3s ease;
+}
+
+.light .bg-white\/80 {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06) !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03) !important;
+}
+
+/* 9. Minimalist Webkit Scrollbar in Light Mode */
+.light ::-webkit-scrollbar-track {
+  background: #F8F9FB;
+}
+
+.light ::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.18);
+  border-radius: 4px;
+  border: 2px solid #F8F9FB;
+}
+
+.light ::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 23, 42, 0.32);
+}
+
+/* 10. Selection in Light Mode */
+.light ::selection {
+  background-color: rgba(99, 102, 241, 0.18);
+  color: #312E81;
+}
+
+/* 11. Subtle Ambient Noise Texture in Light Mode */
+.light body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.022;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* 12. Consistent Luxury Shadow System for Light Mode */
+.light .shadow-sm {
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03) !important;
+}
+.light .shadow-md {
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05) !important;
+}
+.light .shadow-lg,
+.light .shadow-xl {
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.06) !important;
+}
+.light .shadow-2xl {
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.06) !important;
 }
 
 /* Custom horizontal scrollbar hiding */

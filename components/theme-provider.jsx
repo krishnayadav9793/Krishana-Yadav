@@ -16,31 +16,45 @@ export function ThemeProvider({ children }) {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "light" || savedTheme === "dark") {
       setTheme(savedTheme);
+      const root = window.document.documentElement;
+      root.classList.remove("light", "dark");
+      root.classList.add(savedTheme);
+      if (document.body) {
+        document.body.classList.remove("light", "dark");
+        document.body.classList.add(savedTheme);
+      }
     } else {
       const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light";
       setTheme(systemTheme);
+      const root = window.document.documentElement;
+      root.classList.remove("light", "dark");
+      root.classList.add(systemTheme);
+      if (document.body) {
+        document.body.classList.remove("light", "dark");
+        document.body.classList.add(systemTheme);
+      }
     }
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (!mounted) return;
-    const root = window.document.documentElement;
-    root.classList.remove("light", "dark");
-    root.classList.add(theme);
-    localStorage.setItem("theme", theme);
-  }, [theme, mounted]);
-
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+    setTheme((prev) => {
+      const nextTheme = prev === "dark" ? "light" : "dark";
+      const root = window.document.documentElement;
+      root.classList.remove("light", "dark");
+      root.classList.add(nextTheme);
+      if (document.body) {
+        document.body.classList.remove("light", "dark");
+        document.body.classList.add(nextTheme);
+      }
+      try {
+        localStorage.setItem("theme", nextTheme);
+      } catch (e) {}
+      return nextTheme;
+    });
   };
-
-  // Prevent flash by hiding children until client-side hydration is complete
-  if (!mounted) {
-    return <div className="invisible">{children}</div>;
-  }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

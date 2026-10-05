@@ -24,9 +24,9 @@ export default function SectionHeader({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
-          className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-neutral-300 font-mono text-xs tracking-wider uppercase backdrop-blur-md"
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-neutral-300 font-mono text-xs tracking-wider uppercase backdrop-blur-md shadow-sm dark:shadow-none"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400 animate-pulse" />
           <span>{badge}</span>
         </motion.div>
       )}
@@ -36,9 +36,9 @@ export default function SectionHeader({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight text-white"
+        className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight text-neutral-900 dark:text-white"
       >
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-neutral-100 to-neutral-400">
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 via-neutral-800 to-neutral-600 dark:from-white dark:via-neutral-100 dark:to-neutral-400">
           {title}
         </span>
       </motion.h2>
@@ -49,7 +49,7 @@ export default function SectionHeader({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className={`text-sm sm:text-base text-neutral-400 font-sans font-light leading-relaxed ${
+          className={`text-sm sm:text-base text-neutral-600 dark:text-neutral-400 font-sans font-light leading-relaxed ${
             isCentered ? "max-w-2xl" : "max-w-2xl"
           }`}
         >

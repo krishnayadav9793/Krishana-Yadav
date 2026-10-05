@@ -84,7 +84,7 @@ export default function CustomCursor() {
 
       {/* Inner Precision Dot Pointer */}
       <motion.div
-        className="absolute rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+        className="absolute rounded-full bg-indigo-600 dark:bg-white shadow-[0_0_8px_rgba(99,102,241,0.5)] dark:shadow-[0_0_8px_rgba(255,255,255,0.8)]"
         style={{
           x: mouseX,
           y: mouseY,

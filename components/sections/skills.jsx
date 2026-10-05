@@ -112,21 +112,21 @@ function SkillBentoCard({ cat, idx }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: idx * 0.05 }}
-      className={`group relative p-6 sm:p-7 rounded-3xl bg-[#090a12]/80 border border-white/[0.08] ${cat.borderGlow} transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col justify-between text-left glow-spotlight ${cat.colSpan}`}
+      className={`group relative p-6 sm:p-7 rounded-3xl bg-white dark:bg-[#090a12]/80 border border-slate-200/80 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20 ${cat.borderGlow} transition-all duration-300 shadow-[0_10px_30px_rgba(15,23,42,0.04)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col justify-between text-left glow-spotlight ${cat.colSpan}`}
       style={{ "--glow-color": "rgba(99,102,241,0.05)" }}
     >
       <div>
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300">
+            <div className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-800 dark:text-white group-hover:scale-110 transition-transform duration-300">
               <Icon size={17} className={cat.accent} />
             </div>
-            <h3 className="font-display font-bold text-base text-white group-hover:text-indigo-200 transition-colors">
+            <h3 className="font-display font-bold text-base text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-200 transition-colors">
               {cat.category}
             </h3>
           </div>
-          <span className="font-mono text-[9px] uppercase tracking-wider text-neutral-400 bg-white/[0.03] border border-white/10 px-2.5 py-0.5 rounded-full">
+          <span className="font-mono text-[9px] uppercase tracking-wider text-slate-500 dark:text-neutral-400 bg-slate-100 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 px-2.5 py-0.5 rounded-full">
             {cat.badge}
           </span>
         </div>
@@ -136,9 +136,9 @@ function SkillBentoCard({ cat, idx }) {
           {cat.items.map((skill) => (
             <span
               key={skill}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-white/20 hover:bg-white/[0.05] text-neutral-300 hover:text-white font-mono text-xs transition-all duration-200 cursor-default select-none group/chip"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-white/[0.02] border border-slate-200/80 dark:border-white/[0.06] hover:border-indigo-400/50 dark:hover:border-white/20 hover:bg-indigo-50/50 dark:hover:bg-white/[0.05] text-slate-700 dark:text-neutral-300 hover:text-indigo-950 dark:hover:text-white font-mono text-xs transition-all duration-200 cursor-default select-none group/chip"
             >
-              <span className="w-1 h-1 rounded-full bg-neutral-600 group-hover/chip:bg-indigo-400 transition-colors" />
+              <span className="w-1 h-1 rounded-full bg-slate-400 dark:bg-neutral-600 group-hover/chip:bg-indigo-500 dark:group-hover/chip:bg-indigo-400 transition-colors" />
               <span>{skill}</span>
             </span>
           ))}
@@ -146,9 +146,9 @@ function SkillBentoCard({ cat, idx }) {
       </div>
 
       {/* Subtle Bottom Accent hairline */}
-      <div className="mt-6 pt-3 border-t border-white/[0.04] flex items-center justify-between text-[10px] font-mono text-neutral-400">
+      <div className="mt-6 pt-3 border-t border-slate-100 dark:border-white/[0.04] flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-neutral-400">
         <span>{cat.items.length} TECHNOLOGIES</span>
-        <span className="text-neutral-400 group-hover:text-neutral-300 transition-colors">CONFIG: PRODUCTION</span>
+        <span className="text-slate-400 dark:text-neutral-400 group-hover:text-slate-700 dark:group-hover:text-neutral-300 transition-colors">CONFIG: PRODUCTION</span>
       </div>
     </motion.div>
   );
@@ -156,7 +156,7 @@ function SkillBentoCard({ cat, idx }) {
 
 export default function SkillsSection() {
   return (
-    <section id="skills" className="relative py-28 md:py-36 bg-[#050507] border-t border-white/[0.04]">
+    <section id="skills" className="relative py-28 md:py-36 bg-background text-foreground border-t border-black/[0.04] dark:border-white/[0.04] transition-colors duration-300">
       {/* Background Ambience */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(99,102,241,0.025),transparent_60%)] pointer-events-none" />
 

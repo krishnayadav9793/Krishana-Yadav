@@ -180,6 +180,61 @@ export default function ThreeScene() {
     orbitalRing.rotation.z = -0.2;
     systemGroup.add(orbitalRing);
 
+    // Dedicated Theme Adaptation: Crisp technical indigo/blue for light mode, vibrant glow for dark mode
+    const applyThemeMaterials = (isLight) => {
+      if (isLight) {
+        coreMaterial.color.setHex(0x4338ca);
+        coreMaterial.opacity = 0.7;
+        coreMaterial.blending = THREE.NormalBlending;
+
+        innerMat.color.setHex(0x0284c7);
+        innerMat.opacity = 0.55;
+        innerMat.blending = THREE.NormalBlending;
+
+        nodeMaterial.blending = THREE.NormalBlending;
+        nodeMaterial.opacity = 0.85;
+
+        lineMaterial.blending = THREE.NormalBlending;
+        lineMaterial.opacity = 0.45;
+
+        ringMaterial.color.setHex(0x2563eb);
+        ringMaterial.blending = THREE.NormalBlending;
+        ringMaterial.opacity = 0.6;
+      } else {
+        coreMaterial.color.setHex(0x818cf8);
+        coreMaterial.opacity = 0.55;
+        coreMaterial.blending = THREE.AdditiveBlending;
+
+        innerMat.color.setHex(0x06b6d4);
+        innerMat.opacity = 0.45;
+        innerMat.blending = THREE.AdditiveBlending;
+
+        nodeMaterial.blending = THREE.AdditiveBlending;
+        nodeMaterial.opacity = 1.0;
+
+        lineMaterial.blending = THREE.AdditiveBlending;
+        lineMaterial.opacity = 0.35;
+
+        ringMaterial.color.setHex(0x38bdf8);
+        ringMaterial.blending = THREE.AdditiveBlending;
+        ringMaterial.opacity = 0.5;
+      }
+      coreMaterial.needsUpdate = true;
+      innerMat.needsUpdate = true;
+      nodeMaterial.needsUpdate = true;
+      lineMaterial.needsUpdate = true;
+      ringMaterial.needsUpdate = true;
+    };
+
+    const isLightInitially = typeof document !== "undefined" && document.documentElement.classList.contains("light");
+    applyThemeMaterials(isLightInitially);
+
+    const themeObserver = new MutationObserver(() => {
+      const isLight = document.documentElement.classList.contains("light");
+      applyThemeMaterials(isLight);
+    });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+
     // Mouse Interaction Tracking with Smooth Damping
     const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
     const handleMouseMove = (event) => {
@@ -325,6 +380,7 @@ export default function ThreeScene() {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("scroll", handleScroll);
       resizeObserver.disconnect();
+      themeObserver.disconnect();
 
       if (container && renderer.domElement) {
         container.removeChild(renderer.domElement);
@@ -347,8 +403,8 @@ export default function ThreeScene() {
 
   if (!webglSupported) {
     return (
-      <div className="w-full h-full flex flex-col items-center justify-center rounded-3xl bg-neutral-900/60 border border-border/40 p-8 text-center text-muted-foreground">
-        <div className="w-12 h-12 rounded-full border border-indigo-500/40 flex items-center justify-center text-indigo-400 mb-3 animate-pulse">
+      <div className="w-full h-full flex flex-col items-center justify-center rounded-3xl bg-neutral-100 dark:bg-neutral-900/60 border border-border/40 p-8 text-center text-muted-foreground">
+        <div className="w-12 h-12 rounded-full border border-indigo-500/40 flex items-center justify-center text-indigo-500 dark:text-indigo-400 mb-3 animate-pulse">
           ⚡
         </div>
         <p className="font-mono text-xs text-foreground font-semibold">CORE_ALGORITHM_NETWORK</p>
@@ -363,21 +419,21 @@ export default function ThreeScene() {
       <div ref={containerRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
 
       {/* Floating Technical Telemetry HUD Overlays */}
-      <div className="absolute top-4 left-4 pointer-events-none flex items-center gap-2 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[10px] font-mono text-neutral-300">
-        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+      <div className="absolute top-4 left-4 pointer-events-none flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/80 dark:bg-black/40 backdrop-blur-md border border-slate-200/80 dark:border-white/10 text-[10px] font-mono text-slate-700 dark:text-neutral-300 shadow-sm">
+        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-ping" />
         <span>SYS_NODE: ACTIVE</span>
       </div>
 
-      <div className="absolute top-4 right-4 pointer-events-none px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[10px] font-mono text-neutral-300">
+      <div className="absolute top-4 right-4 pointer-events-none px-2.5 py-1 rounded-full bg-white/80 dark:bg-black/40 backdrop-blur-md border border-slate-200/80 dark:border-white/10 text-[10px] font-mono text-slate-700 dark:text-neutral-300 shadow-sm">
         <span>FPS: {fps}</span>
       </div>
 
-      <div className="absolute bottom-4 left-4 pointer-events-none flex items-center gap-2 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[10px] font-mono text-neutral-400">
-        <span className="text-indigo-400">●</span>
+      <div className="absolute bottom-4 left-4 pointer-events-none flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/80 dark:bg-black/40 backdrop-blur-md border border-slate-200/80 dark:border-white/10 text-[10px] font-mono text-slate-600 dark:text-neutral-400 shadow-sm">
+        <span className="text-indigo-600 dark:text-indigo-400">●</span>
         <span>LATENCY: 12ms</span>
       </div>
 
-      <div className="absolute bottom-4 right-4 pointer-events-none px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[10px] font-mono text-neutral-400">
+      <div className="absolute bottom-4 right-4 pointer-events-none px-2.5 py-1 rounded-full bg-white/80 dark:bg-black/40 backdrop-blur-md border border-slate-200/80 dark:border-white/10 text-[10px] font-mono text-slate-600 dark:text-neutral-400 shadow-sm">
         <span>NODES: 65 // GRAPH_CONN</span>
       </div>
     </div>

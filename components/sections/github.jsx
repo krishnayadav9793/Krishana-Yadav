@@ -194,7 +194,7 @@ export default function GithubSection() {
   const { profile, stats, topRepos, activity } = data || FALLBACK_DATA;
 
   return (
-    <section id="github" className="relative py-28 md:py-36 bg-[#050507] border-t border-white/[0.04]">
+    <section id="github" className="relative py-28 md:py-36 bg-background text-foreground border-t border-black/[0.04] dark:border-white/[0.04] transition-colors duration-300">
       {/* Background Ambience */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(99,102,241,0.03),transparent_50%)] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,rgba(6,182,212,0.03),transparent_50%)] pointer-events-none" />
@@ -214,48 +214,48 @@ export default function GithubSection() {
           <div className="lg:col-span-4 flex flex-col gap-6 w-full">
             
             {/* Profile Overview Card */}
-            <div className="p-6 sm:p-7 rounded-3xl bg-[#090a12]/80 border border-white/[0.08] shadow-[0_15px_40px_rgba(0,0,0,0.5)] text-left">
+            <div className="p-6 sm:p-7 rounded-3xl bg-white dark:bg-[#090a12]/80 border border-slate-200/80 dark:border-white/[0.08] shadow-[0_12px_32px_rgba(15,23,42,0.04)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] text-left">
               <div className="flex items-center gap-4 mb-4">
-                <div className="relative w-14 h-14 rounded-2xl overflow-hidden border border-white/10 shrink-0">
+                <div className="relative w-14 h-14 rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 shrink-0">
                   <img src={profile.avatarUrl} alt={profile.name} className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <h3 className="font-display font-bold text-lg text-white">{profile.name}</h3>
+                  <h3 className="font-display font-bold text-lg text-slate-900 dark:text-white">{profile.name}</h3>
                   <a
                     href={profile.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-mono text-indigo-400 hover:text-indigo-300 flex items-center gap-1 mt-0.5"
+                    className="text-xs font-mono text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center gap-1 mt-0.5"
                   >
                     @{profile.username} <ArrowUpRight size={11} />
                   </a>
                 </div>
               </div>
 
-              <p className="text-xs font-sans text-neutral-300 leading-relaxed mb-6 font-light">
+              <p className="text-xs font-sans text-slate-600 dark:text-neutral-300 leading-relaxed mb-6 font-light">
                 {profile.bio}
               </p>
 
-              <div className="flex items-center gap-4 text-xs font-mono text-neutral-400 mb-6 border-y border-white/[0.06] py-3">
+              <div className="flex items-center gap-4 text-xs font-mono text-slate-500 dark:text-neutral-400 mb-6 border-y border-slate-200/80 dark:border-white/[0.06] py-3">
                 <div className="flex items-center gap-1.5">
-                  <Users size={13} className="text-indigo-400" />
-                  <span><strong className="text-white font-medium">{profile.followers}</strong> followers</span>
+                  <Users size={13} className="text-indigo-600 dark:text-indigo-400" />
+                  <span><strong className="text-slate-900 dark:text-white font-medium">{profile.followers}</strong> followers</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <Users size={13} className="text-cyan-400" />
-                  <span><strong className="text-white font-medium">{profile.following}</strong> following</span>
+                  <Users size={13} className="text-cyan-600 dark:text-cyan-400" />
+                  <span><strong className="text-slate-900 dark:text-white font-medium">{profile.following}</strong> following</span>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2.5 text-xs text-neutral-400 font-mono">
+              <div className="flex flex-col gap-2.5 text-xs text-slate-500 dark:text-neutral-400 font-mono">
                 {profile.location && (
                   <div className="flex items-center gap-2">
-                    <MapPin size={13} className="text-rose-400" />
+                    <MapPin size={13} className="text-rose-500 dark:text-rose-400" />
                     <span>{profile.location}</span>
                   </div>
                 )}
                 <div className="flex items-center gap-2">
-                  <BookOpen size={13} className="text-amber-400" />
+                  <BookOpen size={13} className="text-amber-500 dark:text-amber-400" />
                   <span>{profile.publicRepos} Public Repositories</span>
                 </div>
               </div>
@@ -263,32 +263,32 @@ export default function GithubSection() {
 
             {/* Quick Metrics Grid */}
             <div className="grid grid-cols-2 gap-4">
-              <div className="p-5 rounded-2xl bg-[#090a12]/80 border border-white/[0.08] text-left">
-                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mb-3">
+              <div className="p-5 rounded-2xl bg-white dark:bg-[#090a12]/80 border border-slate-200/80 dark:border-white/[0.08] text-left shadow-sm dark:shadow-none">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-500 dark:text-amber-400 flex items-center justify-center mb-3">
                   <Star size={15} />
                 </div>
-                <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest block">Total Stars</span>
-                <p className="text-2xl font-bold font-display text-white mt-1">
+                <span className="text-[10px] font-mono text-slate-500 dark:text-neutral-400 uppercase tracking-widest block">Total Stars</span>
+                <p className="text-2xl font-bold font-display text-slate-900 dark:text-white mt-1">
                   <StatCounter value={stats.totalStars} />
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-[#090a12]/80 border border-white/[0.08] text-left">
-                <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center mb-3">
+              <div className="p-5 rounded-2xl bg-white dark:bg-[#090a12]/80 border border-slate-200/80 dark:border-white/[0.08] text-left shadow-sm dark:shadow-none">
+                <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-3">
                   <GitFork size={15} />
                 </div>
-                <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest block">Forks</span>
-                <p className="text-2xl font-bold font-display text-white mt-1">
+                <span className="text-[10px] font-mono text-slate-500 dark:text-neutral-400 uppercase tracking-widest block">Forks</span>
+                <p className="text-2xl font-bold font-display text-slate-900 dark:text-white mt-1">
                   <StatCounter value={stats.totalForks} />
                 </p>
               </div>
             </div>
 
             {/* Top Technologies */}
-            <div className="p-6 rounded-3xl bg-[#090a12]/80 border border-white/[0.08] text-left">
+            <div className="p-6 rounded-3xl bg-white dark:bg-[#090a12]/80 border border-slate-200/80 dark:border-white/[0.08] text-left shadow-sm dark:shadow-none">
               <div className="flex items-center gap-2 mb-4">
-                <Code size={15} className="text-indigo-400" />
-                <h4 className="font-display font-semibold text-xs uppercase tracking-wider text-neutral-300">
+                <Code size={15} className="text-indigo-600 dark:text-indigo-400" />
+                <h4 className="font-display font-semibold text-xs uppercase tracking-wider text-slate-700 dark:text-neutral-300">
                   Language Distribution
                 </h4>
               </div>
@@ -305,11 +305,11 @@ export default function GithubSection() {
 
                   return (
                     <div key={lang.name} className="space-y-1">
-                      <div className="flex justify-between text-xs font-mono text-neutral-400">
-                        <span className="text-neutral-200 font-medium">{lang.name}</span>
+                      <div className="flex justify-between text-xs font-mono text-slate-500 dark:text-neutral-400">
+                        <span className="text-slate-800 dark:text-neutral-200 font-medium">{lang.name}</span>
                         <span>{lang.percentage}%</span>
                       </div>
-                      <div className="h-1.5 w-full bg-white/[0.04] rounded-full overflow-hidden">
+                      <div className="h-1.5 w-full bg-slate-100 dark:bg-white/[0.04] rounded-full overflow-hidden">
                         <motion.div
                           className={`h-full ${colorClass} rounded-full`}
                           initial={{ width: 0 }}
@@ -330,14 +330,14 @@ export default function GithubSection() {
           <div className="lg:col-span-8 flex flex-col gap-6 w-full text-left">
             
             {/* Contribution Calendar Card */}
-            <div className="p-6 sm:p-7 rounded-3xl bg-[#090a12]/80 border border-white/[0.08] shadow-[0_15px_40px_rgba(0,0,0,0.5)]">
+            <div className="p-6 sm:p-7 rounded-3xl bg-white dark:bg-[#090a12]/80 border border-slate-200/80 dark:border-white/[0.08] shadow-[0_12px_32px_rgba(15,23,42,0.04)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)]">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
                 <div className="flex items-center gap-2">
-                  <Calendar size={15} className="text-indigo-400" />
-                  <h4 className="font-display font-bold text-sm text-white">GitHub Contribution Graph</h4>
+                  <Calendar size={15} className="text-indigo-600 dark:text-indigo-400" />
+                  <h4 className="font-display font-bold text-sm text-slate-900 dark:text-white">GitHub Contribution Graph</h4>
                 </div>
-                <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-mono text-[9px] uppercase tracking-wide">
-                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-ping" />
+                <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-700 dark:text-indigo-300 font-mono text-[9px] uppercase tracking-wide">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 dark:bg-indigo-400 animate-ping" />
                   <span>Real-time Calendar</span>
                 </div>
               </div>
@@ -356,13 +356,13 @@ export default function GithubSection() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-[10px] font-mono text-neutral-400 mt-4 border-t border-white/[0.06] pt-3">
+              <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-neutral-400 mt-4 border-t border-slate-200/80 dark:border-white/[0.06] pt-3">
                 <span>Reflected from active GitHub commits</span>
                 <a
                   href={`https://github.com/${profile.username}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-indigo-300 transition-colors flex items-center gap-1"
+                  className="hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors flex items-center gap-1"
                 >
                   View full history <ArrowUpRight size={11} />
                 </a>
@@ -371,8 +371,8 @@ export default function GithubSection() {
 
             {/* Featured Repositories Bento Row */}
             <div>
-              <h4 className="text-lg font-bold font-display text-white mb-4 flex items-center gap-2">
-                <Sparkles size={16} className="text-indigo-400" />
+              <h4 className="text-lg font-bold font-display text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                <Sparkles size={16} className="text-indigo-600 dark:text-indigo-400" />
                 <span>Featured Open Source Repositories</span>
               </h4>
 
@@ -389,35 +389,35 @@ export default function GithubSection() {
                       href={repo.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group block p-5 rounded-2xl bg-[#090a12]/80 border border-white/[0.08] hover:border-indigo-400/40 hover:bg-[#0c0d18] transition-all duration-300 h-full flex flex-col justify-between"
+                      className="group block p-5 rounded-2xl bg-white dark:bg-[#090a12]/80 border border-slate-200/80 dark:border-white/[0.08] hover:border-indigo-300 dark:hover:border-indigo-400/40 hover:bg-slate-50/50 dark:hover:bg-[#0c0d18] transition-all duration-300 h-full flex flex-col justify-between shadow-sm dark:shadow-none"
                     >
                       <div>
                         <div className="flex justify-between items-start mb-2">
-                          <h5 className="font-display font-bold text-sm text-white group-hover:text-indigo-300 transition-colors tracking-tight">
+                          <h5 className="font-display font-bold text-sm text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-300 transition-colors tracking-tight">
                             {repo.name}
                           </h5>
-                          <ArrowUpRight size={13} className="text-neutral-500 group-hover:text-white transition-colors" />
+                          <ArrowUpRight size={13} className="text-slate-400 dark:text-neutral-500 group-hover:text-slate-900 dark:group-hover:text-white transition-colors" />
                         </div>
 
-                        <p className="text-[11px] text-neutral-300 font-sans font-light leading-relaxed mb-4 line-clamp-2 h-[34px]">
+                        <p className="text-[11px] text-slate-600 dark:text-neutral-300 font-sans font-light leading-relaxed mb-4 line-clamp-2 h-[34px]">
                           {repo.description || "No description provided."}
                         </p>
                       </div>
 
-                      <div className="flex items-center justify-between text-[10px] font-mono text-neutral-400 border-t border-white/[0.06] pt-3">
+                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-neutral-400 border-t border-slate-200/80 dark:border-white/[0.06] pt-3">
                         <div className="flex items-center gap-3">
                           {repo.language && (
-                            <span className="flex items-center gap-1 text-neutral-300">
-                              <span className="w-2 h-2 rounded-full bg-indigo-400" />
+                            <span className="flex items-center gap-1 text-slate-700 dark:text-neutral-300">
+                              <span className="w-2 h-2 rounded-full bg-indigo-500 dark:bg-indigo-400" />
                               {repo.language}
                             </span>
                           )}
                           <span className="flex items-center gap-0.5">
-                            <Star size={11} className="text-amber-400 fill-amber-400" />
+                            <Star size={11} className="text-amber-500 dark:text-amber-400 fill-amber-500 dark:fill-amber-400" />
                             {repo.stars}
                           </span>
                           <span className="flex items-center gap-0.5">
-                            <GitFork size={11} className="text-cyan-400" />
+                            <GitFork size={11} className="text-cyan-600 dark:text-cyan-400" />
                             {repo.forks}
                           </span>
                         </div>
@@ -431,40 +431,40 @@ export default function GithubSection() {
 
             {/* Live Commit Stream */}
             <div className="mt-2">
-              <h4 className="text-lg font-bold font-display text-white mb-4 flex items-center gap-2">
-                <Activity size={16} className="text-indigo-400 animate-pulse" />
+              <h4 className="text-lg font-bold font-display text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                <Activity size={16} className="text-indigo-600 dark:text-indigo-400 animate-pulse" />
                 <span>Recent Commit Stream</span>
               </h4>
 
-              <div className="relative border-l border-white/[0.08] ml-3 pl-6 space-y-5 py-1">
+              <div className="relative border-l border-slate-200 dark:border-white/[0.08] ml-3 pl-6 space-y-5 py-1">
                 {activity.length === 0 ? (
-                  <p className="text-xs font-mono text-neutral-500 italic">No recent public actions recorded.</p>
+                  <p className="text-xs font-mono text-slate-400 dark:text-neutral-500 italic">No recent public actions recorded.</p>
                 ) : (
                   activity.map((act, idx) => (
                     <div key={act.id || idx} className="relative group">
-                      <div className="absolute -left-[31px] top-1 w-4 h-4 rounded-full border border-indigo-400/30 bg-[#050507] flex items-center justify-center">
-                        <GitCommit size={10} className="text-indigo-400" />
+                      <div className="absolute -left-[31px] top-1 w-4 h-4 rounded-full border border-indigo-400/30 bg-slate-50 dark:bg-background flex items-center justify-center">
+                        <GitCommit size={10} className="text-indigo-600 dark:text-indigo-400" />
                       </div>
 
                       <div className="space-y-1">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                          <p className="text-xs font-medium text-white">
+                          <p className="text-xs font-medium text-slate-900 dark:text-white">
                             {act.title}{" "}
                             <a
                               href={act.repoUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-indigo-300 font-semibold hover:underline"
+                              className="text-indigo-600 dark:text-indigo-300 font-semibold hover:underline"
                             >
                               {act.repoName}
                             </a>
                           </p>
-                          <span className="text-[10px] font-mono text-neutral-400">
+                          <span className="text-[10px] font-mono text-slate-500 dark:text-neutral-400">
                             {formatRelativeTime(act.date)}
                           </span>
                         </div>
                         {act.details && (
-                          <p className="text-[11px] font-mono text-neutral-400 italic pl-3 border-l border-white/[0.08] py-0.5 leading-normal">
+                          <p className="text-[11px] font-mono text-slate-500 dark:text-neutral-400 italic pl-3 border-l border-slate-200 dark:border-white/[0.08] py-0.5 leading-normal">
                             {act.details}
                           </p>
                         )}

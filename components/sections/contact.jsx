@@ -104,7 +104,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative py-28 md:py-36 bg-[#050507] border-t border-white/[0.04]">
+    <section id="contact" className="relative py-28 md:py-36 bg-background text-foreground border-t border-black/[0.04] dark:border-white/[0.04] transition-colors duration-300">
       {/* Background Lighting */}
       <div className="absolute bottom-0 inset-x-0 h-96 bg-gradient-to-t from-indigo-500/[0.04] to-transparent pointer-events-none" />
       <div className="absolute top-[20%] right-[10%] w-96 h-96 bg-indigo-500/[0.05] rounded-full blur-[140px] pointer-events-none" />
@@ -125,35 +125,35 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-5 flex flex-col justify-between p-7 sm:p-9 rounded-3xl bg-[#090a12]/80 border border-white/[0.08] shadow-[0_15px_40px_rgba(0,0,0,0.5)] text-left space-y-8"
+            className="lg:col-span-5 flex flex-col justify-between p-7 sm:p-9 rounded-3xl bg-white dark:bg-[#090a12]/80 border border-slate-200/80 dark:border-white/[0.08] shadow-[0_12px_32px_rgba(15,23,42,0.04)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] text-left space-y-8"
           >
             <div className="space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-xs font-semibold">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-mono text-xs font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-ping" />
                 <span>OPEN FOR OPPORTUNITIES</span>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight flex items-center gap-2.5">
-                <Sparkles size={22} className="text-indigo-400" />
+              <h3 className="text-2xl sm:text-3xl font-display font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2.5">
+                <Sparkles size={22} className="text-indigo-600 dark:text-indigo-400" />
                 <span>Let's Build Together</span>
               </h3>
 
-              <p className="text-sm font-sans font-light text-neutral-300 leading-relaxed">
+              <p className="text-sm font-sans font-light text-slate-600 dark:text-neutral-300 leading-relaxed">
                 Whether you are looking to hire, discuss competitive coding problems, collaborate on a new project, or just share valuable advice - my inbox is always open.
               </p>
 
               {/* Direct Clickable Email Card with Copy Action */}
-              <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.08] hover:border-white/20 transition-colors">
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200/80 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20 transition-colors">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+                    <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
                       <Mail size={18} />
                     </div>
                     <div>
-                      <p className="text-[10px] text-neutral-400 font-mono uppercase tracking-wider">Email Address</p>
+                      <p className="text-[10px] text-slate-500 dark:text-neutral-400 font-mono uppercase tracking-wider">Email Address</p>
                       <a
                         href="mailto:karanyadav21398@gmail.com"
-                        className="text-sm font-semibold text-white hover:text-indigo-300 transition-colors font-mono"
+                        className="text-sm font-semibold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors font-mono"
                       >
                         karanyadav21398@gmail.com
                       </a>
@@ -162,18 +162,18 @@ export default function ContactSection() {
 
                   <button
                     onClick={copyEmail}
-                    className="p-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.1] border border-white/10 text-neutral-400 hover:text-white transition-colors cursor-pointer"
+                    className="p-2 rounded-xl bg-white dark:bg-white/[0.04] hover:bg-slate-100 dark:hover:bg-white/[0.1] border border-slate-200 dark:border-white/10 text-slate-500 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
                     aria-label="Copy email address"
                   >
-                    {copied ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
+                    {copied ? <Check size={14} className="text-emerald-500 dark:text-emerald-400" /> : <Copy size={14} />}
                   </button>
                 </div>
               </div>
             </div>
 
             {/* Preserved Social Presence Badges */}
-            <div className="space-y-3 pt-6 border-t border-white/[0.06]">
-              <p className="text-xs font-mono font-semibold text-indigo-300 uppercase tracking-widest">
+            <div className="space-y-3 pt-6 border-t border-slate-200/80 dark:border-white/[0.06]">
+              <p className="text-xs font-mono font-semibold text-indigo-600 dark:text-indigo-300 uppercase tracking-widest">
                 Digital Presence
               </p>
               <div className="flex flex-wrap gap-2.5">
@@ -181,7 +181,7 @@ export default function ContactSection() {
                   href="https://github.com/krishnayadav9793"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-neutral-300 hover:text-white font-mono text-xs flex items-center gap-2 transition-all"
+                  className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-white/[0.03] hover:bg-slate-200 dark:hover:bg-white/[0.08] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-neutral-300 hover:text-slate-950 dark:hover:text-white font-mono text-xs flex items-center gap-2 transition-all"
                   aria-label="GitHub Profile"
                 >
                   <Github size={14} />
@@ -192,7 +192,7 @@ export default function ContactSection() {
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-neutral-300 hover:text-white font-mono text-xs flex items-center gap-2 transition-all"
+                  className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-white/[0.03] hover:bg-slate-200 dark:hover:bg-white/[0.08] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-neutral-300 hover:text-slate-950 dark:hover:text-white font-mono text-xs flex items-center gap-2 transition-all"
                   aria-label="LinkedIn Profile"
                 >
                   <Linkedin size={14} />
@@ -203,7 +203,7 @@ export default function ContactSection() {
                   href="https://twitter.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-neutral-300 hover:text-white font-mono text-xs flex items-center gap-2 transition-all"
+                  className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-white/[0.03] hover:bg-slate-200 dark:hover:bg-white/[0.08] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-neutral-300 hover:text-slate-950 dark:hover:text-white font-mono text-xs flex items-center gap-2 transition-all"
                   aria-label="Twitter Profile"
                 >
                   <Twitter size={14} />
@@ -214,7 +214,7 @@ export default function ContactSection() {
                   href="https://codeforces.com/profile/krishna_yadav_"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-neutral-300 hover:text-white font-mono text-xs flex items-center gap-2 transition-all"
+                  className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-white/[0.03] hover:bg-slate-200 dark:hover:bg-white/[0.08] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-neutral-300 hover:text-slate-950 dark:hover:text-white font-mono text-xs flex items-center gap-2 transition-all"
                   aria-label="Codeforces Profile"
                 >
                   <Award size={14} />
@@ -230,21 +230,21 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="lg:col-span-7 p-7 sm:p-9 rounded-3xl bg-[#090a12]/80 border border-white/[0.08] shadow-[0_15px_40px_rgba(0,0,0,0.5)] text-left"
+            className="lg:col-span-7 p-7 sm:p-9 rounded-3xl bg-white dark:bg-[#090a12]/80 border border-slate-200/80 dark:border-white/[0.08] shadow-[0_12px_32px_rgba(15,23,42,0.04)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.5)] text-left"
           >
-            <div className="flex items-center justify-between pb-4 mb-6 border-b border-white/[0.06] font-mono text-xs text-neutral-400">
-              <span className="flex items-center gap-2 text-white font-semibold">
-                <Terminal size={14} className="text-indigo-400" />
+            <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-200/80 dark:border-white/[0.06] font-mono text-xs text-slate-500 dark:text-neutral-400">
+              <span className="flex items-center gap-2 text-slate-900 dark:text-white font-semibold">
+                <Terminal size={14} className="text-indigo-600 dark:text-indigo-400" />
                 SECURE_TRANSMIT_CONSOLE
               </span>
-              <span className="text-[10px] text-emerald-400">STATUS: IDLE</span>
+              <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">STATUS: IDLE</span>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label htmlFor="firstname" className="text-xs font-mono uppercase tracking-wider text-neutral-400">
-                    First Name <span className="text-indigo-400">*</span>
+                  <label htmlFor="firstname" className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-neutral-400 font-medium">
+                    First Name <span className="text-indigo-600 dark:text-indigo-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -254,12 +254,12 @@ export default function ContactSection() {
                     value={formData.firstname}
                     onChange={handleChange}
                     placeholder="Enter first name"
-                    className="w-full px-4 py-3 text-sm rounded-xl border border-white/10 bg-[#050507] text-white focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 outline-none transition-all placeholder:text-neutral-600"
+                    className="w-full px-4 py-3 text-sm rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#050507] text-slate-900 dark:text-white focus:bg-white dark:focus:bg-[#050507] focus:border-indigo-600 dark:focus:border-indigo-400 focus:ring-1 focus:ring-indigo-600 dark:focus:ring-indigo-400 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-neutral-600"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label htmlFor="lastname" className="text-xs font-mono uppercase tracking-wider text-neutral-400">
+                  <label htmlFor="lastname" className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-neutral-400 font-medium">
                     Last Name
                   </label>
                   <input
@@ -269,14 +269,14 @@ export default function ContactSection() {
                     value={formData.lastname}
                     onChange={handleChange}
                     placeholder="Enter last name"
-                    className="w-full px-4 py-3 text-sm rounded-xl border border-white/10 bg-[#050507] text-white focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 outline-none transition-all placeholder:text-neutral-600"
+                    className="w-full px-4 py-3 text-sm rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#050507] text-slate-900 dark:text-white focus:bg-white dark:focus:bg-[#050507] focus:border-indigo-600 dark:focus:border-indigo-400 focus:ring-1 focus:ring-indigo-600 dark:focus:ring-indigo-400 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-neutral-600"
                   />
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label htmlFor="email" className="text-xs font-mono uppercase tracking-wider text-neutral-400">
-                  Email Address <span className="text-indigo-400">*</span>
+                <label htmlFor="email" className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-neutral-400 font-medium">
+                  Email Address <span className="text-indigo-600 dark:text-indigo-400">*</span>
                 </label>
                 <input
                   type="email"
@@ -286,13 +286,13 @@ export default function ContactSection() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="name@example.com"
-                  className="w-full px-4 py-3 text-sm rounded-xl border border-white/10 bg-[#050507] text-white focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 outline-none transition-all placeholder:text-neutral-600"
+                  className="w-full px-4 py-3 text-sm rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#050507] text-slate-900 dark:text-white focus:bg-white dark:focus:bg-[#050507] focus:border-indigo-600 dark:focus:border-indigo-400 focus:ring-1 focus:ring-indigo-600 dark:focus:ring-indigo-400 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-neutral-600"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label htmlFor="message" className="text-xs font-mono uppercase tracking-wider text-neutral-400">
-                  Message / Suggestions <span className="text-indigo-400">*</span>
+                <label htmlFor="message" className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-neutral-400 font-medium">
+                  Message / Suggestions <span className="text-indigo-600 dark:text-indigo-400">*</span>
                 </label>
                 <textarea
                   id="message"
@@ -302,7 +302,7 @@ export default function ContactSection() {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Write details of your message..."
-                  className="w-full px-4 py-3 text-sm rounded-xl border border-white/10 bg-[#050507] text-white focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 outline-none transition-all placeholder:text-neutral-600 resize-none"
+                  className="w-full px-4 py-3 text-sm rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#050507] text-slate-900 dark:text-white focus:bg-white dark:focus:bg-[#050507] focus:border-indigo-600 dark:focus:border-indigo-400 focus:ring-1 focus:ring-indigo-600 dark:focus:ring-indigo-400 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-neutral-600 resize-none"
                 />
               </div>
 
